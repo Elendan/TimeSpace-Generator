@@ -40,6 +40,7 @@
             // 
             this.XmlOutputBox.Location = new System.Drawing.Point(428, 112);
             this.XmlOutputBox.Multiline = true;
+            XmlOutputBox.ReadOnly = true;
             this.XmlOutputBox.Name = "XmlOutputBox";
             this.XmlOutputBox.Size = new System.Drawing.Size(572, 568);
             this.XmlOutputBox.TabIndex = 0;
@@ -60,6 +61,7 @@
             this.GenerateXmlButton.TabIndex = 2;
             this.GenerateXmlButton.Text = "Generate";
             this.GenerateXmlButton.UseVisualStyleBackColor = true;
+            this.GenerateXmlButton.Click += new System.EventHandler(this.GenerateXmlButton_Click);
             // 
             // PacketsLabel
             // 
