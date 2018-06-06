@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeSpaceGenerator.Factory
+namespace TimeSpaceGenerator.Core.Handling
 {
-    internal static class PacketFactory
+    public interface IPacketHandler
     {
+        // Idk if this is of any use
     }
 }
