@@ -36,6 +36,8 @@
             this.XmlOutput = new System.Windows.Forms.Label();
             this.ErrorTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.RbrPacketTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // XmlOutputBox
@@ -49,7 +51,7 @@
             // 
             // PacketTextBox
             // 
-            this.PacketTextBox.Location = new System.Drawing.Point(12, 112);
+            this.PacketTextBox.Location = new System.Drawing.Point(12, 157);
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
             this.PacketTextBox.Size = new System.Drawing.Size(396, 196);
@@ -57,7 +59,7 @@
             // 
             // GenerateXmlButton
             // 
-            this.GenerateXmlButton.Location = new System.Drawing.Point(16, 325);
+            this.GenerateXmlButton.Location = new System.Drawing.Point(12, 359);
             this.GenerateXmlButton.Name = "GenerateXmlButton";
             this.GenerateXmlButton.Size = new System.Drawing.Size(155, 59);
             this.GenerateXmlButton.TabIndex = 2;
@@ -68,7 +70,7 @@
             // PacketsLabel
             // 
             this.PacketsLabel.AutoSize = true;
-            this.PacketsLabel.Location = new System.Drawing.Point(9, 87);
+            this.PacketsLabel.Location = new System.Drawing.Point(9, 141);
             this.PacketsLabel.Name = "PacketsLabel";
             this.PacketsLabel.Size = new System.Drawing.Size(46, 13);
             this.PacketsLabel.TabIndex = 3;
@@ -100,11 +102,29 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Error Log";
             // 
+            // RbrPacketTextBox
+            // 
+            this.RbrPacketTextBox.Location = new System.Drawing.Point(13, 112);
+            this.RbrPacketTextBox.Name = "RbrPacketTextBox";
+            this.RbrPacketTextBox.Size = new System.Drawing.Size(395, 20);
+            this.RbrPacketTextBox.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 87);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "rbr packet";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 692);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.RbrPacketTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ErrorTextBox);
             this.Controls.Add(this.XmlOutput);
@@ -129,6 +149,8 @@
         private System.Windows.Forms.Label XmlOutput;
         private System.Windows.Forms.TextBox ErrorTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox RbrPacketTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }
 

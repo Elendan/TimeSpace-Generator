@@ -6,6 +6,7 @@ using TimeSpaceGenerator.Core;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Handlers;
+using TimeSpaceGenerator.Helpers;
 
 namespace TimeSpaceGenerator
 {
@@ -26,8 +27,13 @@ namespace TimeSpaceGenerator
             ErrorManager.Instance.Error.Clear();
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
-                string[] packetSplit = line.Split(' ');
-                PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], line, true);
+                string cpy = line;
+                if (!char.IsLetter(line[0]))
+                {
+                    cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
+                }
+                string[] packetSplit = cpy.Split(' ');
+                PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
             }
 
             foreach (KeyValuePair<ErrorType, string> item in ErrorManager.Instance.Error)
