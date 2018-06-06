@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using TimeSpaceGenerator.Core.Handling;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Objects;
-using Message = System.Windows.Forms.Message;
+using TimeSpaceGenerator.Packets;
 
 namespace TimeSpaceGenerator.Handlers
 {

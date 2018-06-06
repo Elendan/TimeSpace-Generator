@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeSpaceGenerator.Core.Serializing;
-using TimeSpaceGenerator.Enums;
 
-namespace TimeSpaceGenerator.Objects
+namespace TimeSpaceGenerator.Packets
 {
     [PacketHeader("in")]
     public class InPacket : PacketDefinition

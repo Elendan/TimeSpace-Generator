@@ -71,7 +71,7 @@
     </Compile>
     <Compile Include="Handlers\ScriptedInstancePacketHandler.cs" />
     <Compile Include="Helpers\PacketReaderHelper.cs" />
-    <Compile Include="Objects\InPacket.cs" />
+    <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Clock.cs" />
     <Compile Include="Objects\Event.cs" />
     <Compile Include="Objects\Item.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="Objects\Script.cs" />
     <Compile Include="Objects\TimeSpaceInfo.cs" />
     <Compile Include="Objects\Wave.cs" />
+    <Compile Include="Packets\InPacket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\GenerateScript.cs" />
