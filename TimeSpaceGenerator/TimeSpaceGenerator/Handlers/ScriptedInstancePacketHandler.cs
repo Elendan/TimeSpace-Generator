@@ -10,5 +10,10 @@ namespace TimeSpaceGenerator.Handlers
         {
             MessageBox.Show($"entityType : {packet.EntityType.ToString()}\nNpcMonsterVnum {packet.NpcMonsterVnum}");
         }
+
+        public void RbrPacket(RbrPacket packet)
+        {
+            MessageBox.Show($"{packet.LevelMinimum}\n{packet.Unknown1}\n{packet.Unknown2}\n{packet.Unknown3}\n{packet.Unknown4}\n{packet.Unknown5}\n");
+        }
     }
 }

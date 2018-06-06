@@ -30,9 +30,11 @@ namespace TimeSpaceGenerator
                 string cpy = line;
                 if (!char.IsLetter(line[0]))
                 {
+                    //I know this is dirty as fuck
                     cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
                 }
                 string[] packetSplit = cpy.Split(' ');
+                cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
                 PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
             }
 

@@ -16,6 +16,24 @@ namespace TimeSpaceGenerator.Helpers
 
         #endregion
 
+        #region Instantiation
+
+        public PacketHelper()
+        {
+            ReplacableChars = new List<char>();
+            ReplacableChars.AddRange(new List<char> {'.'});
+        }
+
+        #endregion
+
+        #region Properties
+
+        public List<char> ReplacableChars { get; set; }
+
+        #endregion
+
+        #region Methods
+
         public int RemovableStringIndex(string packet, char delim1, char delim2, byte count1, byte count2)
         {
             int j = 0, k = 0;
@@ -44,5 +62,17 @@ namespace TimeSpaceGenerator.Helpers
 
             return -1;
         }
+
+        public string FormatPacket(string packet, char replacer)
+        {
+            foreach (char c in ReplacableChars)
+            {
+                packet = packet.Replace(c, replacer);
+            }
+
+            return packet;
+        }
+
+        #endregion
     }
 }
