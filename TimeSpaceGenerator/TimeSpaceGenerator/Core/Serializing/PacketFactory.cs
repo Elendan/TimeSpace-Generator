@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Objects;
+using Message = System.Windows.Forms.Message;
 
 namespace TimeSpaceGenerator.Core.Serializing
 {
@@ -41,15 +42,15 @@ namespace TimeSpaceGenerator.Core.Serializing
         {
             try
             {
-                packetContent = "0 " + packetContent;
                 KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformation = GetSerializationInformation(packetType);
                 var deserializedPacket = (PacketDefinition)Activator.CreateInstance(packetType); // reflection is bad, improve?
                 SetDeserializationInformations(deserializedPacket, packetContent, serializationInformation.Key.Item2);
                 deserializedPacket = Deserialize(packetContent, deserializedPacket, serializationInformation);
                 return deserializedPacket;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.WrongFormat, ex.ToString()));
                 ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.WrongFormat, $"The serialized packet has the wrong format. Packet: {packetContent}"));
                 return null;
             }
@@ -412,8 +413,12 @@ namespace TimeSpaceGenerator.Core.Serializing
             // order by index
             IOrderedEnumerable<KeyValuePair<PacketIndexAttribute, PropertyInfo>> keyValuePairs = packetsForPacketDefinition.OrderBy(p => p.Key.Index);
 
-            var serializationInformatin =
+            KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformatin =
                 new KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>>(new Tuple<Type, string>(serializationType, header), packetsForPacketDefinition);
+            if (_packetSerializationInformations == null)
+            {
+                _packetSerializationInformations = new Dictionary<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>>();
+            }
             _packetSerializationInformations.Add(serializationInformatin.Key, serializationInformatin.Value);
 
             return serializationInformatin;

@@ -10,6 +10,6 @@ namespace TimeSpaceGenerator.Enums
     {
         MissingPacket = 1,
         CorruptedPacket = 2,
-        WrongFormat = 3
+        WrongFormat = 3,
     }
 }

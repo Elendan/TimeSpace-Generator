@@ -15,7 +15,7 @@ namespace TimeSpaceGenerator.Objects
         [PacketIndex(0)]
         public int EntityType { get; set; }
 
-        /*[PacketIndex(1)]
+        [PacketIndex(1)]
         public long NpcMonsterVnum { get; set; }
 
         [PacketIndex(2)]
@@ -88,7 +88,7 @@ namespace TimeSpaceGenerator.Objects
         public sbyte Unkown12 { get; set; }
 
         [PacketIndex(25)]
-        public sbyte Unkown13 { get; set; }*/
+        public sbyte Unkown13 { get; set; }
         #endregion
     }
 }

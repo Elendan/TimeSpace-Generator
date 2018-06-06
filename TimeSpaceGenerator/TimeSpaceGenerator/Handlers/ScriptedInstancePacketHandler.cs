@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core.Handling;
+using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Objects;
+using Message = System.Windows.Forms.Message;
 
 namespace TimeSpaceGenerator.Handlers
 {
@@ -13,7 +15,7 @@ namespace TimeSpaceGenerator.Handlers
     {
         public void InButtonPacket(InPacket packet)
         {
-            MessageBox.Show("In packet was found !");
+            MessageBox.Show($"entityType : {packet.EntityType}\nNpcMonsterVnum {packet.NpcMonsterVnum}");
         }
     }
 }
