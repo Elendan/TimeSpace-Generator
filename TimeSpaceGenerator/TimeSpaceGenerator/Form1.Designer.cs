@@ -1,4 +1,7 @@
-﻿namespace TimeSpaceGenerator
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace TimeSpaceGenerator
 {
     partial class Form1
     {
@@ -38,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.RbrPacketTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.ExitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // XmlOutputBox
@@ -46,6 +50,7 @@
             this.XmlOutputBox.Multiline = true;
             this.XmlOutputBox.Name = "XmlOutputBox";
             this.XmlOutputBox.ReadOnly = true;
+            this.XmlOutputBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.XmlOutputBox.Size = new System.Drawing.Size(572, 568);
             this.XmlOutputBox.TabIndex = 0;
             // 
@@ -54,6 +59,7 @@
             this.PacketTextBox.Location = new System.Drawing.Point(12, 157);
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
+            this.PacketTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.PacketTextBox.Size = new System.Drawing.Size(396, 196);
             this.PacketTextBox.TabIndex = 1;
             // 
@@ -90,6 +96,7 @@
             this.ErrorTextBox.Location = new System.Drawing.Point(16, 471);
             this.ErrorTextBox.Multiline = true;
             this.ErrorTextBox.Name = "ErrorTextBox";
+            this.ErrorTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ErrorTextBox.Size = new System.Drawing.Size(392, 209);
             this.ErrorTextBox.TabIndex = 5;
             // 
@@ -118,11 +125,26 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "rbr packet";
             // 
+            // ExitButton
+            // 
+            ExitButton.Location = new System.Drawing.Point(959, 12);
+            ExitButton.Name = "ExitButton";
+            ExitButton.Size = new System.Drawing.Size(20, 20);
+            ExitButton.TabIndex = 11;
+            ExitButton.Text = "X";
+            ExitButton.AutoSize = true;
+            ExitButton.BackColor = Color.White;
+            ExitButton.Cursor = Cursors.Hand;
+            ExitButton.Font = new Font("Microsoft Sans Serif", 12f);
+            ExitButton.ImeMode = ImeMode.NoControl;
+            ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 692);
+            //this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.RbrPacketTextBox);
             this.Controls.Add(this.label1);
@@ -132,6 +154,8 @@
             this.Controls.Add(this.GenerateXmlButton);
             this.Controls.Add(this.PacketTextBox);
             this.Controls.Add(this.XmlOutputBox);
+           // this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //StartPosition = FormStartPosition.CenterScreen;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "TimeSpace Generator by Elendan";
@@ -151,6 +175,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox RbrPacketTextBox;
         private System.Windows.Forms.Label label2;
+        private Button ExitButton;
     }
 }
 

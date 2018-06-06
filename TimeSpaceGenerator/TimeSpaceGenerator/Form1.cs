@@ -43,5 +43,10 @@ namespace TimeSpaceGenerator
                 ErrorTextBox.Text += $"{item.Key.ToString()}: {item.Value}" + Environment.NewLine;
             }
         }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
