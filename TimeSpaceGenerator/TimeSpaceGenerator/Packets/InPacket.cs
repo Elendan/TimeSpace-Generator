@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimeSpaceGenerator.Core.Serializing;
+﻿using TimeSpaceGenerator.Core.Serializing;
+using TimeSpaceGenerator.Enums;
 
 namespace TimeSpaceGenerator.Packets
 {
@@ -12,7 +8,7 @@ namespace TimeSpaceGenerator.Packets
     {
         #region Properties
         [PacketIndex(0)]
-        public int EntityType { get; set; }
+        public VisualType EntityType { get; set; }
 
         [PacketIndex(1)]
         public long NpcMonsterVnum { get; set; }

@@ -3,14 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
-using TimeSpaceGenerator.Objects;
-using Message = System.Windows.Forms.Message;
 
 namespace TimeSpaceGenerator.Core.Serializing
 {

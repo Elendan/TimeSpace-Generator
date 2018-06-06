@@ -70,7 +70,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\ScriptedInstancePacketHandler.cs" />
-    <Compile Include="Helpers\PacketReaderHelper.cs" />
+    <Compile Include="Managers\ScriptManager.cs" />
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Clock.cs" />
     <Compile Include="Objects\Event.cs" />

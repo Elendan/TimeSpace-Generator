@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimeSpaceGenerator.Core.Serializing;
-using TimeSpaceGenerator.Enums;
+﻿using System.Collections.Generic;
 
 namespace TimeSpaceGenerator.Objects
 {

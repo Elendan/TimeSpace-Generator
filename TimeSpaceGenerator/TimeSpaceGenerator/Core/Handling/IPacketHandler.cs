@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TimeSpaceGenerator.Core.Handling
+﻿namespace TimeSpaceGenerator.Core.Handling
 {
     public interface IPacketHandler
     {
