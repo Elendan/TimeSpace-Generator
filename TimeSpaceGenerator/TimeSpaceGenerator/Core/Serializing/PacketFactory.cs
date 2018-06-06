@@ -7,6 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TimeSpaceGenerator.Enums;
+using TimeSpaceGenerator.Errors;
+using TimeSpaceGenerator.Objects;
 
 namespace TimeSpaceGenerator.Core.Serializing
 {
@@ -38,7 +41,7 @@ namespace TimeSpaceGenerator.Core.Serializing
         {
             try
             {
-                MessageBox.Show(packetContent);
+                packetContent = "0 " + packetContent;
                 KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformation = GetSerializationInformation(packetType);
                 var deserializedPacket = (PacketDefinition)Activator.CreateInstance(packetType); // reflection is bad, improve?
                 SetDeserializationInformations(deserializedPacket, packetContent, serializationInformation.Key.Item2);
@@ -47,7 +50,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             }
             catch (Exception)
             {
-                MessageBox.Show($"The serialized packet has the wrong format. Packet: {packetContent}");
+                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.WrongFormat, $"The serialized packet has the wrong format. Packet: {packetContent}"));
                 return null;
             }
         }
@@ -409,7 +412,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             // order by index
             IOrderedEnumerable<KeyValuePair<PacketIndexAttribute, PropertyInfo>> keyValuePairs = packetsForPacketDefinition.OrderBy(p => p.Key.Index);
 
-            KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformatin =
+            var serializationInformatin =
                 new KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>>(new Tuple<Type, string>(serializationType, header), packetsForPacketDefinition);
             _packetSerializationInformations.Add(serializationInformatin.Key, serializationInformatin.Value);
 

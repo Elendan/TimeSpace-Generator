@@ -58,9 +58,11 @@
     <Compile Include="Core\Utilities\DependencyContainer.cs" />
     <Compile Include="Core\Utilities\Singleton.cs" />
     <Compile Include="Enums\ClockType.cs" />
+    <Compile Include="Enums\ErrorType.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\MapItemType.cs" />
     <Compile Include="Enums\VisualType.cs" />
+    <Compile Include="Errors\ErrorManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

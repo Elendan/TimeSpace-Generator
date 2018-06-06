@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core.Handling;
 using TimeSpaceGenerator.Core.Serializing;
+using TimeSpaceGenerator.Enums;
+using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Handlers;
 
 namespace TimeSpaceGenerator.Core
@@ -81,7 +83,7 @@ namespace TimeSpaceGenerator.Core
         {
             if (!HandlerMethods.TryGetValue(packetHeader, out HandlerMethodReference methodReference))
             {
-                MessageBox.Show($"Handler not found for packet : {packetHeader}");
+                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.MissingPacket, $"Handler not found for packet : {packetHeader}"));
                 return;
             }
 
@@ -100,7 +102,7 @@ namespace TimeSpaceGenerator.Core
                     }
                     else
                     {
-                        MessageBox.Show("Packet is corrupted.");
+                        ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.CorruptedPacket, $"Packet is corrupted"));
                     }
                 }
                 else

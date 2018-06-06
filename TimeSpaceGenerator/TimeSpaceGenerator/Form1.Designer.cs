@@ -34,14 +34,16 @@
             this.GenerateXmlButton = new System.Windows.Forms.Button();
             this.PacketsLabel = new System.Windows.Forms.Label();
             this.XmlOutput = new System.Windows.Forms.Label();
+            this.ErrorTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // XmlOutputBox
             // 
             this.XmlOutputBox.Location = new System.Drawing.Point(428, 112);
             this.XmlOutputBox.Multiline = true;
-            XmlOutputBox.ReadOnly = true;
             this.XmlOutputBox.Name = "XmlOutputBox";
+            this.XmlOutputBox.ReadOnly = true;
             this.XmlOutputBox.Size = new System.Drawing.Size(572, 568);
             this.XmlOutputBox.TabIndex = 0;
             // 
@@ -81,11 +83,30 @@
             this.XmlOutput.TabIndex = 4;
             this.XmlOutput.Text = "XmlOutput";
             // 
+            // ErrorTextBox
+            // 
+            this.ErrorTextBox.Location = new System.Drawing.Point(16, 471);
+            this.ErrorTextBox.Multiline = true;
+            this.ErrorTextBox.Name = "ErrorTextBox";
+            this.ErrorTextBox.Size = new System.Drawing.Size(392, 209);
+            this.ErrorTextBox.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 455);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Error Log";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 692);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ErrorTextBox);
             this.Controls.Add(this.XmlOutput);
             this.Controls.Add(this.PacketsLabel);
             this.Controls.Add(this.GenerateXmlButton);
@@ -106,6 +127,8 @@
         private System.Windows.Forms.Button GenerateXmlButton;
         private System.Windows.Forms.Label PacketsLabel;
         private System.Windows.Forms.Label XmlOutput;
+        private System.Windows.Forms.TextBox ErrorTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
