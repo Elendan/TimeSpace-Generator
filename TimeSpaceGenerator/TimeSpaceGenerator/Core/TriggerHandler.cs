@@ -22,15 +22,26 @@ namespace TimeSpaceGenerator.Core
 
         #endregion
 
+        #region Members
+
+        private IDictionary<string, HandlerMethodReference> _handlerMethods;
+
+        #endregion
+
         #region Properties
 
-        public Dictionary<string, HandlerMethodReference> HandlerMethods { get; set; }
+        public IDictionary<string, HandlerMethodReference> HandlerMethods
+        {
+            get => _handlerMethods ?? (_handlerMethods = new Dictionary<string, HandlerMethodReference>());
+
+            set => _handlerMethods = value;
+        }
 
         #endregion
 
         #region Methods
 
-        private void GenerateHandlerReferences(Type type)
+        public void GenerateHandlerReferences(Type type)
         {
             IEnumerable<Type> handlerTypes = type.Assembly.GetTypes().Where(s => s.Name.Equals("ScriptedInstancePacketHandler"));
 
@@ -68,9 +79,6 @@ namespace TimeSpaceGenerator.Core
 
         public void TriggerHandlerPacket(string packetHeader, string packet, bool force = false)
         {
-            //Ik, it sucks
-            GenerateHandlerReferences(typeof(ScriptedInstancePacketHandler));
-
             if (!HandlerMethods.TryGetValue(packetHeader, out HandlerMethodReference methodReference))
             {
                 MessageBox.Show($"Handler not found for packet : {packetHeader}");
@@ -79,9 +87,12 @@ namespace TimeSpaceGenerator.Core
 
             try
             {
+                // call actual handler method
                 if (methodReference.PacketDefinitionParameterType != null)
                 {
-                    object deserializedPacket = PacketFactory.Deserialize(packet, methodReference.PacketDefinitionParameterType, true);
+
+                    object deserializedPacket = PacketFactory.Deserialize(packet,
+                        methodReference.PacketDefinitionParameterType);
 
                     if (deserializedPacket != null || methodReference.PassNonParseablePacket)
                     {

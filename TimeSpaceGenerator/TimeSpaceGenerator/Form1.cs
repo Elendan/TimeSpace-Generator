@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core;
+using TimeSpaceGenerator.Handlers;
 
 namespace TimeSpaceGenerator
 {
@@ -20,6 +21,7 @@ namespace TimeSpaceGenerator
         {
             InitializeComponent();
             PacketTriggerHandler = new TriggerHandler();
+            PacketTriggerHandler.GenerateHandlerReferences(typeof(ScriptedInstancePacketHandler));
         }
 
         private void GenerateXmlButton_Click(object sender, EventArgs e)
@@ -27,7 +29,7 @@ namespace TimeSpaceGenerator
             foreach (string line in PacketTextBox.Lines)
             {
                 string[] packetSplit = line.Split(' ');
-                PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], line, false);
+                PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], line, true);
             }
         }
     }

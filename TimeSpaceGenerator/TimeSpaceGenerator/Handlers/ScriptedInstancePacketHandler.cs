@@ -11,7 +11,7 @@ namespace TimeSpaceGenerator.Handlers
 {
     internal class ScriptedInstancePacketHandler : IPacketHandler
     {
-        public void InButtonPacket(ButtonPacket packet)
+        public void InButtonPacket(InPacket packet)
         {
             MessageBox.Show("In packet was found !");
         }

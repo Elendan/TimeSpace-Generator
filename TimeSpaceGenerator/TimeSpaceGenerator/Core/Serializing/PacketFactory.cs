@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TimeSpaceGenerator.Core.Serializing
 {
@@ -30,23 +31,23 @@ namespace TimeSpaceGenerator.Core.Serializing
         /// </summary>
         /// <param name="packetContent">The content to deseralize</param>
         /// <param name="packetType">The type of the packet to deserialize to</param>
-        /// <param name="includesKeepAliveIdentity">
         ///     Include the keep alive identity or exclude it
         /// </param>
         /// <returns>The deserialized packet.</returns>
-        public static PacketDefinition Deserialize(string packetContent, Type packetType, bool includesKeepAliveIdentity = false)
+        public static PacketDefinition Deserialize(string packetContent, Type packetType)
         {
             try
             {
+                MessageBox.Show(packetContent);
                 KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformation = GetSerializationInformation(packetType);
                 var deserializedPacket = (PacketDefinition)Activator.CreateInstance(packetType); // reflection is bad, improve?
                 SetDeserializationInformations(deserializedPacket, packetContent, serializationInformation.Key.Item2);
-                deserializedPacket = Deserialize(packetContent, deserializedPacket, serializationInformation, includesKeepAliveIdentity);
+                deserializedPacket = Deserialize(packetContent, deserializedPacket, serializationInformation);
                 return deserializedPacket;
             }
             catch (Exception)
             {
-                Console.WriteLine($"The serialized packet has the wrong format. Packet: {packetContent}");
+                MessageBox.Show($"The serialized packet has the wrong format. Packet: {packetContent}");
                 return null;
             }
         }
@@ -55,11 +56,10 @@ namespace TimeSpaceGenerator.Core.Serializing
         ///     Deserializes a string into a PacketDefinition
         /// </summary>
         /// <param name="packetContent">The content to deseralize</param>
-        /// <param name="includesKeepAliveIdentity">
         ///     Include the keep alive identity or exclude it
         /// </param>
         /// <returns>The deserialized packet.</returns>
-        public static TPacket Deserialize<TPacket>(string packetContent, bool includesKeepAliveIdentity = false)
+        public static TPacket Deserialize<TPacket>(string packetContent)
         where TPacket : PacketDefinition
         {
             try
@@ -68,7 +68,7 @@ namespace TimeSpaceGenerator.Core.Serializing
                 var deserializedPacket = Activator.CreateInstance<TPacket>(); // reflection is bad, improve?
                 SetDeserializationInformations(deserializedPacket, packetContent, serializationInformation.Key.Item2);
 
-                deserializedPacket = (TPacket)Deserialize(packetContent, deserializedPacket, serializationInformation, includesKeepAliveIdentity);
+                deserializedPacket = (TPacket)Deserialize(packetContent, deserializedPacket, serializationInformation);
 
                 return deserializedPacket;
             }
@@ -148,7 +148,7 @@ namespace TimeSpaceGenerator.Core.Serializing
         }
 
         private static PacketDefinition Deserialize(string packetContent, PacketDefinition deserializedPacket, KeyValuePair<Tuple<Type, string>,
-            Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformation, bool includesKeepAliveIdentity)
+            Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformation)
         {
             MatchCollection matches = Regex.Matches(packetContent, @"([^\040]+[\.][^\040]+[\040]?)+((?=\040)|$)|([^\040]+)((?=\040)|$)");
 
@@ -159,7 +159,7 @@ namespace TimeSpaceGenerator.Core.Serializing
 
             foreach (KeyValuePair<PacketIndexAttribute, PropertyInfo> packetBasePropertyInfo in serializationInformation.Value)
             {
-                int currentIndex = packetBasePropertyInfo.Key.Index + (includesKeepAliveIdentity ? 2 : 1); // adding 2 because we need to skip incrementing number and packet header
+                int currentIndex = packetBasePropertyInfo.Key.Index + 1; // adding 2 because we need to skip incrementing number and packet header
 
                 if (currentIndex < matches.Count)
                 {
@@ -168,7 +168,7 @@ namespace TimeSpaceGenerator.Core.Serializing
                         // get the value to the end and stop deserialization
                         string valueToEnd = packetContent.Substring(matches[currentIndex].Index, packetContent.Length - matches[currentIndex].Index);
                         packetBasePropertyInfo.Value.SetValue(deserializedPacket,
-                            DeserializeValue(packetBasePropertyInfo.Value.PropertyType, valueToEnd, packetBasePropertyInfo.Key, matches, includesKeepAliveIdentity));
+                            DeserializeValue(packetBasePropertyInfo.Value.PropertyType, valueToEnd, packetBasePropertyInfo.Key, matches));
                         break;
                     }
 
@@ -182,7 +182,7 @@ namespace TimeSpaceGenerator.Core.Serializing
 
                     // set the value & convert currentValue
                     packetBasePropertyInfo.Value.SetValue(deserializedPacket,
-                        DeserializeValue(packetBasePropertyInfo.Value.PropertyType, currentValue, packetBasePropertyInfo.Key, matches, includesKeepAliveIdentity));
+                        DeserializeValue(packetBasePropertyInfo.Value.PropertyType, currentValue, packetBasePropertyInfo.Key, matches));
                 }
                 else
                 {
@@ -241,10 +241,8 @@ namespace TimeSpaceGenerator.Core.Serializing
         /// <param name="shouldRemoveSeparator"></param>
         /// <param name="packetMatchCollections"></param>
         /// <param name="currentIndex"></param>
-        /// <param name="includesKeepAliveIdentity"></param>
         /// <returns></returns>
-        private static IList DeserializeSubpackets(string currentValue, Type packetBasePropertyType, bool shouldRemoveSeparator, MatchCollection packetMatchCollections, int? currentIndex,
-            bool includesKeepAliveIdentity)
+        private static IList DeserializeSubpackets(string currentValue, Type packetBasePropertyType, bool shouldRemoveSeparator, MatchCollection packetMatchCollections, int? currentIndex)
         {
             // split into single values
             List<string> splittedSubpackets = currentValue.Split(' ').ToList();
@@ -270,10 +268,10 @@ namespace TimeSpaceGenerator.Core.Serializing
                 int subPacketTypePropertiesCount = subpacketSerializationInfo.Value.Count;
 
                 // check if the amount of properties can be serialized properly
-                if (((splittedSubpacketParts.Count + (includesKeepAliveIdentity ? 1 : 0))
+                if ((splittedSubpacketParts.Count
                     % subPacketTypePropertiesCount) == 0) // amount of properties per subpacket does match the given value amount in %
                 {
-                    for (int i = currentIndex.Value + 1 + (includesKeepAliveIdentity ? 1 : 0); i < splittedSubpacketParts.Count; i++)
+                    for (int i = currentIndex.Value + 1; i < splittedSubpacketParts.Count; i++)
                     {
                         int j;
                         for (j = i; j < i + subPacketTypePropertiesCount; j++)
@@ -306,8 +304,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             return subpackets;
         }
 
-        private static object DeserializeValue(Type packetPropertyType, string currentValue, PacketIndexAttribute packetIndexAttribute, MatchCollection packetMatches,
-            bool includesKeepAliveIdentity = false)
+        private static object DeserializeValue(Type packetPropertyType, string currentValue, PacketIndexAttribute packetIndexAttribute, MatchCollection packetMatches)
         {
             // check for empty value and cast it to null
             if (currentValue == "-1" || currentValue == "-")
@@ -348,7 +345,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             if (packetPropertyType.IsGenericType && packetPropertyType.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>)) // subpacket list
                 && packetPropertyType.GenericTypeArguments[0].BaseType == typeof(PacketDefinition))
             {
-                return DeserializeSubpackets(currentValue, packetPropertyType, packetIndexAttribute?.RemoveSeparator ?? false, packetMatches, packetIndexAttribute?.Index, includesKeepAliveIdentity);
+                return DeserializeSubpackets(currentValue, packetPropertyType, packetIndexAttribute?.RemoveSeparator ?? false, packetMatches, packetIndexAttribute?.Index);
             }
 
             if (packetPropertyType.IsGenericType && packetPropertyType.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>))) // simple list
@@ -421,9 +418,11 @@ namespace TimeSpaceGenerator.Core.Serializing
 
         private static KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> GetSerializationInformation(Type serializationType)
         {
-            return _packetSerializationInformations.Any(si => si.Key.Item1 == serializationType)
-                ? _packetSerializationInformations.SingleOrDefault(si => si.Key.Item1 == serializationType)
-                : GenerateSerializationInformations(serializationType); // generic runtime serialization parameter generation
+            if (_packetSerializationInformations != null && _packetSerializationInformations.Any(si => si.Key.Item1 == serializationType))
+            {
+                return _packetSerializationInformations.SingleOrDefault(si => si.Key.Item1 == serializationType);
+            }
+            return GenerateSerializationInformations(serializationType); // generic runtime serialization parameter generation
         }
 
         /// <summary>
