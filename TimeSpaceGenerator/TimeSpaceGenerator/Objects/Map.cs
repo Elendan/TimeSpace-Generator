@@ -10,7 +10,7 @@ namespace TimeSpaceGenerator.Objects
     {
         public Map(short vnum, byte id, byte indexX, byte indexY)
         {
-            MapButtons = new List<Button>();
+            MapButtons = new List<ButtonPacket>();
             MapPortals = new List<Portal>();
             MapNpcs = new List<Npc>();
             MapMonsters = new List<Monster>();
@@ -42,7 +42,7 @@ namespace TimeSpaceGenerator.Objects
 
         public List<Monster> MapMonsters { get; set; }
 
-        public List<Button> MapButtons { get; set; }
+        public List<ButtonPacket> MapButtons { get; set; }
 
         public List<Event> OnCharacterDiscoveringMap { get; set; }
 

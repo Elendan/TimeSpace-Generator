@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeSpaceGenerator.Core.Serializing;
 using TimeSpaceGenerator.Enums;
 
 namespace TimeSpaceGenerator.Objects
 {
-    public class Clock
+    // Idk wtf the packetheader is
+    public class Clock : PacketDefinition
     {
         public Clock() => TimeOutEvent = new List<Event>();
 

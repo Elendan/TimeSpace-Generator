@@ -45,16 +45,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factory\PacketFactory.cs" />
+    <Compile Include="Core\DelegateBuilder.cs" />
+    <Compile Include="Core\Handling\HandlerMethodReference.cs" />
+    <Compile Include="Core\Handling\IPacketHandler.cs" />
+    <Compile Include="Core\Handling\PacketAttribute.cs" />
+    <Compile Include="Core\Serializing\PacketAliasAttribute.cs" />
+    <Compile Include="Core\Serializing\PacketDefinition.cs" />
+    <Compile Include="Core\Serializing\PacketFactory.cs" />
+    <Compile Include="Core\Serializing\PacketHeaderAttribute.cs" />
+    <Compile Include="Core\Serializing\PacketIndexAttribute.cs" />
+    <Compile Include="Core\TriggerHandler.cs" />
+    <Compile Include="Core\Utilities\DependencyContainer.cs" />
+    <Compile Include="Core\Utilities\Singleton.cs" />
+    <Compile Include="Enums\ClockType.cs" />
+    <Compile Include="Enums\EventType.cs" />
+    <Compile Include="Enums\MapItemType.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ScriptedInstancePacketHandler.cs" />
     <Compile Include="Helpers\PacketReaderHelper.cs" />
+    <Compile Include="Objects\ButtonPacket.cs" />
+    <Compile Include="Objects\Clock.cs" />
+    <Compile Include="Objects\Event.cs" />
+    <Compile Include="Objects\Item.cs" />
+    <Compile Include="Objects\Map.cs" />
+    <Compile Include="Objects\Message.cs" />
+    <Compile Include="Objects\Monster.cs" />
+    <Compile Include="Objects\Npc.cs" />
+    <Compile Include="Objects\Portal.cs" />
+    <Compile Include="Objects\Script.cs" />
+    <Compile Include="Objects\TimeSpaceInfo.cs" />
+    <Compile Include="Objects\Wave.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\GenerateScript.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

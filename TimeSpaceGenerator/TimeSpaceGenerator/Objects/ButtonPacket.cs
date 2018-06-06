@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeSpaceGenerator.Core.Serializing;
 
 namespace TimeSpaceGenerator.Objects
 {
-    public class Button
+    [PacketHeader("in", PassNonParseablePacket = true)]
+    public class ButtonPacket : PacketDefinition
     {
-        public Button(short vnum, long buttonId, short posX, short posY)
+        public ButtonPacket()
+        {
+
+        }
+
+        public ButtonPacket(short vnum, long buttonId, short posX, short posY)
         {
             OnFirstEnable = new List<Event>();
             OnEnable = new List<Event>();
