@@ -14,6 +14,14 @@ namespace TimeSpaceGenerator.Helpers
         public static ScriptHelper Instance => _instance ?? (_instance = new ScriptHelper());
         #endregion
 
+        public List<short> Buttons = new List<short>()
+        {
+             1000,
+             1051,
+             1055,
+             1057
+        };
+
         public string[] Space { get; set; }
 
         public ScriptHelper()

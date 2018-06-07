@@ -11,7 +11,7 @@ namespace TimeSpaceGenerator.Packets
         public VisualType EntityType { get; set; }
 
         [PacketIndex(1)]
-        public long NpcMonsterVnum { get; set; }
+        public short NpcMonsterVnum { get; set; }
 
         [PacketIndex(2)]
         public long MateTransportId { get; set; }

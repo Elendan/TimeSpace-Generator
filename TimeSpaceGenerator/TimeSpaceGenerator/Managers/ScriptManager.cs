@@ -54,9 +54,9 @@ namespace TimeSpaceGenerator.Managers
 
         public short PosY { get; set; }
 
-        public byte IndexX { get; set; }
+        public short IndexX { get; set; }
 
-        public byte IndexY { get; set; }
+        public short IndexY { get; set; }
 
         public bool Flag1 { get; set; }
 

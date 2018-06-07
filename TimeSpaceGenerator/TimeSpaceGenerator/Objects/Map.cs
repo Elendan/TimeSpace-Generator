@@ -4,7 +4,7 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Map
     {
-        public Map(short vnum, byte id, byte indexX, byte indexY)
+        public Map(short vnum, byte id, short indexX, short indexY)
         {
             MapButtons = new List<Button>();
             MapPortals = new List<Portal>();
