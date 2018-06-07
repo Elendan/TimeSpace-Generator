@@ -63,11 +63,11 @@ namespace TimeSpaceGenerator.Helpers
             return -1;
         }
 
-        public string FormatPacket(string packet, char replacer)
+        public string FormatPacket(string packet, char token)
         {
             foreach (char c in ReplacableChars)
             {
-                packet = packet.Replace(c, replacer);
+                packet = packet.Replace(c, token);
             }
 
             return packet;

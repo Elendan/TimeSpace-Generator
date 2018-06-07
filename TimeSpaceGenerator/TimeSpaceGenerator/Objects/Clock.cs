@@ -4,7 +4,6 @@ using TimeSpaceGenerator.Enums;
 
 namespace TimeSpaceGenerator.Objects
 {
-    // Idk wtf the packetheader is
     public class Clock : PacketDefinition
     {
         public Clock() => TimeOutEvent = new List<Event>();

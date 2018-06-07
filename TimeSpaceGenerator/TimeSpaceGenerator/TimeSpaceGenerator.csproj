@@ -49,7 +49,6 @@
     <Compile Include="Core\Handling\HandlerMethodReference.cs" />
     <Compile Include="Core\Handling\IPacketHandler.cs" />
     <Compile Include="Core\Handling\PacketAttribute.cs" />
-    <Compile Include="Core\Serializing\PacketAliasAttribute.cs" />
     <Compile Include="Core\Serializing\PacketDefinition.cs" />
     <Compile Include="Core\Serializing\PacketFactory.cs" />
     <Compile Include="Core\Serializing\PacketHeaderAttribute.cs" />
