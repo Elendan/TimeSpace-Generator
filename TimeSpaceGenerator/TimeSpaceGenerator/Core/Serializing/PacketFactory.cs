@@ -210,12 +210,6 @@ namespace TimeSpaceGenerator.Core.Serializing
 
         private static object DeserializeValue(Type packetPropertyType, string currentValue, PacketIndexAttribute packetIndexAttribute, MatchCollection packetMatches)
         {
-            // check for empty value and cast it to null
-            if (currentValue == "-1" || currentValue == "-")
-            {
-                currentValue = null;
-            }
-
             // enum should be casted to number
             if (packetPropertyType.BaseType != null && packetPropertyType.BaseType == typeof(Enum))
             {

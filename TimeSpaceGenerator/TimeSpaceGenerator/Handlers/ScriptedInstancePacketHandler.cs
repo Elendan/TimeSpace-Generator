@@ -13,6 +13,11 @@ namespace TimeSpaceGenerator.Handlers
 {
     internal class ScriptedInstancePacketHandler : IPacketHandler
     {
+        public void RbrPacket(RbrPacket packet)
+        {
+            // This will be re implemented later
+        }
+
         public void WalkPacket(WalkPacket packet)
         {
             ScriptManager.Instance.PosX = packet.XCoordinate;
@@ -199,7 +204,7 @@ namespace TimeSpaceGenerator.Handlers
 
         public void EvntPacket(EvntPacket packet)
         {
-            switch (packet.Type)
+            switch ((ClockType)packet.Type)
             {
                 case ClockType.SimpleClock:
                     if (packet.BaseSecondsRemaining == packet.DeciSecondsRemaining)

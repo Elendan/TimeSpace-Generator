@@ -1,6 +1,6 @@
 ﻿namespace TimeSpaceGenerator.Enums
 {
-    public enum ClockType
+    public enum ClockType : int
     {
         SimpleClock = 1,
         MapClock = 3,

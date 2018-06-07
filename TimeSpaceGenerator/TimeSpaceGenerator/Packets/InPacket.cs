@@ -23,7 +23,7 @@ namespace TimeSpaceGenerator.Packets
         public short PosY { get; set; }
 
         [PacketIndex(5)]
-        public sbyte Direction { get; set; }
+        public short Direction { get; set; }
 
         [PacketIndex(6)]
         public int Hp { get; set; }
@@ -32,22 +32,22 @@ namespace TimeSpaceGenerator.Packets
         public int Mp { get; set; }
 
         [PacketIndex(8)]
-        public sbyte Unknown { get; set; }
+        public int Unknown { get; set; }
 
         [PacketIndex(9)]
-        public sbyte Faction { get; set; }
+        public short Faction { get; set; }
 
         [PacketIndex(10)]
-        public sbyte Unknown2 { get; set; }
+        public int Unknown2 { get; set; }
 
         [PacketIndex(11)]
         public long CharacterId { get; set; }
 
         [PacketIndex(12)]
-        public sbyte Unknown3 { get; set; }
+        public int Unknown3 { get; set; }
 
         [PacketIndex(13)]
-        public sbyte Unknown4 { get; set; }
+        public int Unknown4 { get; set; }
 
         [PacketIndex(14)]
         public short Morph { get; set; }
@@ -56,34 +56,34 @@ namespace TimeSpaceGenerator.Packets
         public string Name { get; set; }
 
         [PacketIndex(16)]
-        public sbyte MateType { get; set; }
+        public short MateType { get; set; }
 
         [PacketIndex(17)]
-        public sbyte Unkown5 { get; set; }
+        public int Unkown5 { get; set; }
 
         [PacketIndex(18)]
-        public sbyte Unkown6 { get; set; }
+        public int Unkown6 { get; set; }
 
         [PacketIndex(19)]
-        public sbyte Unkown7 { get; set; }
+        public int Unkown7 { get; set; }
 
         [PacketIndex(20)]
-        public sbyte Unkown8 { get; set; }
+        public int Unkown8 { get; set; }
 
         [PacketIndex(21)]
-        public sbyte Unkown9 { get; set; }
+        public int Unkown9 { get; set; }
 
         [PacketIndex(22)]
-        public sbyte Unkown10 { get; set; }
+        public int Unkown10 { get; set; }
 
         [PacketIndex(23)]
-        public sbyte Unkown11 { get; set; }
+        public int Unkown11 { get; set; }
 
         [PacketIndex(24)]
-        public sbyte Unkown12 { get; set; }
+        public int Unkown12 { get; set; }
 
         [PacketIndex(25)]
-        public sbyte Unkown13 { get; set; }
+        public int Unkown13 { get; set; }
         #endregion
     }
 }

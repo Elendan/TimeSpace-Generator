@@ -7,6 +7,7 @@ using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Handlers;
 using TimeSpaceGenerator.Helpers;
+using TimeSpaceGenerator.Managers;
 
 namespace TimeSpaceGenerator
 {
@@ -25,6 +26,7 @@ namespace TimeSpaceGenerator
         {
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
+            ScriptManager.Instance.RbrPacketManager(RbrPacketTextBox.Text, XmlFileNameTextBox);
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
                 string cpy = line;
@@ -37,16 +39,29 @@ namespace TimeSpaceGenerator
                 cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
                 PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
             }
-
+            
             foreach (KeyValuePair<ErrorType, string> item in ErrorManager.Instance.Error)
             {
                 ErrorTextBox.Text += $"{item.Key.ToString()}: {item.Value}" + Environment.NewLine;
             }
+
+            //Dont ask me why I did such bullshit, will fix.
+            ScriptManager.Instance.GenerateScript(ScriptManager.Instance.Script);
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void PacketsLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -35,6 +35,6 @@ namespace TimeSpaceGenerator.Packets
         public short Lives { get; set; }
 
         [PacketIndex(8)]
-        public short Unknown8 { get; set; }
+        public string Unknown8 { get; set; }
     }
 }

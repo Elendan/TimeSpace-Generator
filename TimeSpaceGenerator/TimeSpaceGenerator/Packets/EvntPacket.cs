@@ -16,7 +16,7 @@ namespace TimeSpaceGenerator.Packets
         public ClockType Type { get; set; }
 
         [PacketIndex(1)]
-        public sbyte Enabled { get; set; } //Idk really
+        public int Enabled { get; set; } //Idk really
 
         [PacketIndex(2)]
         public int DeciSecondsRemaining { get; set; }
