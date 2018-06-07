@@ -16,7 +16,7 @@ namespace TimeSpaceGenerator.Packets
         public byte EffectType { get; set; }
 
         [PacketIndex(1)]
-        public long CharacterId { get; set; }
+        public long EntityId { get; set; }
 
         [PacketIndex(2)]
         public int Id { get; set; }

@@ -4,5 +4,6 @@
     {
         SimpleClock = 1,
         MapClock = 3,
+        TimeSpaceClock = 10
     }
 }
