@@ -30,10 +30,6 @@ namespace TimeSpaceGenerator.Objects
         //Ik, this is ugly af
         public string SetEvent(byte space = 0)
         {
-            if (Type == EventType.NpcDialog)
-            {
-                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.WrongFormat, "Data : " + NumericData.ToString()));
-            }
             switch (Type)
             {
                 case EventType.SummonMonster:
