@@ -13,7 +13,7 @@ namespace TimeSpaceGenerator.Packets
         [PacketIndex(0)]
         public byte Type { get; set; }
 
-        [PacketIndex(1)]
+        [PacketIndex(1, SerializeToEnd = true)]
         public string Message { get; set; }
     }
 }

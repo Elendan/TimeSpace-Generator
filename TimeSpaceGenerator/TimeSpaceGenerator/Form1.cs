@@ -29,6 +29,7 @@ namespace TimeSpaceGenerator
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
             ScriptManager.Instance.RbrPacketManager(RbrPacketTextBox.Text, XmlFileNameTextBox);
+            ScriptManager.Instance.Script.Info.Label = LabelTextBox.Text;
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
                 string cpy = line;
@@ -50,8 +51,7 @@ namespace TimeSpaceGenerator
             if (!ScriptManager.Instance.IsGenerated)
             {
                 //Dont ask me why I did such bullshit, will fix.
-                ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript(ScriptManager.Instance.Script);
-                XmlOutputBox.Text = ScriptManager.Instance.GenerateScript(ScriptManager.Instance.Script);
+                ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript();
                 ScriptManager.Instance.IsGenerated = true;
             }
 

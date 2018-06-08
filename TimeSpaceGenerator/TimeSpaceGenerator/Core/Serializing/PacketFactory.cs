@@ -275,7 +275,11 @@ namespace TimeSpaceGenerator.Core.Serializing
             _packetSerializationInformations = new Dictionary<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>>();
 
             // Iterate thru all PacketDefinition implementations
-            foreach (Type packetBaseType in typeof(TPacketDefinition).Assembly.GetTypes().Where(p => !p.IsInterface && typeof(TPacketDefinition).BaseType.IsAssignableFrom(p)))
+            foreach (Type packetBaseType in typeof(TPacketDefinition).Assembly.GetTypes().Where(p =>
+            {
+                Type memberInfo = typeof(TPacketDefinition).BaseType;
+                return memberInfo != null && (!p.IsInterface && memberInfo.IsAssignableFrom(p));
+            }))
             {
                 // add to serialization informations
                 KeyValuePair<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>> serializationInformations =

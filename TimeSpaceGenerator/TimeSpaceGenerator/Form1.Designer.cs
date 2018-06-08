@@ -44,6 +44,8 @@ namespace TimeSpaceGenerator
             this.ExitButton = new System.Windows.Forms.Button();
             this.XmlFileNameTextBox = new System.Windows.Forms.TextBox();
             this.GenerateXmlFileButton = new System.Windows.Forms.Button();
+            this.LabelTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // XmlOutputBox
@@ -58,7 +60,7 @@ namespace TimeSpaceGenerator
             // 
             // PacketTextBox
             // 
-            this.PacketTextBox.Location = new System.Drawing.Point(12, 87);
+            this.PacketTextBox.Location = new System.Drawing.Point(12, 191);
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
             this.PacketTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -67,7 +69,7 @@ namespace TimeSpaceGenerator
             // 
             // GenerateXmlButton
             // 
-            this.GenerateXmlButton.Location = new System.Drawing.Point(16, 289);
+            this.GenerateXmlButton.Location = new System.Drawing.Point(12, 393);
             this.GenerateXmlButton.Name = "GenerateXmlButton";
             this.GenerateXmlButton.Size = new System.Drawing.Size(155, 59);
             this.GenerateXmlButton.TabIndex = 2;
@@ -78,7 +80,7 @@ namespace TimeSpaceGenerator
             // PacketsLabel
             // 
             this.PacketsLabel.AutoSize = true;
-            this.PacketsLabel.Location = new System.Drawing.Point(9, 71);
+            this.PacketsLabel.Location = new System.Drawing.Point(9, 175);
             this.PacketsLabel.Name = "PacketsLabel";
             this.PacketsLabel.Size = new System.Drawing.Size(46, 13);
             this.PacketsLabel.TabIndex = 3;
@@ -96,7 +98,7 @@ namespace TimeSpaceGenerator
             // 
             // ErrorTextBox
             // 
-            this.ErrorTextBox.Location = new System.Drawing.Point(16, 384);
+            this.ErrorTextBox.Location = new System.Drawing.Point(12, 471);
             this.ErrorTextBox.Multiline = true;
             this.ErrorTextBox.Name = "ErrorTextBox";
             this.ErrorTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -106,7 +108,7 @@ namespace TimeSpaceGenerator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 368);
+            this.label1.Location = new System.Drawing.Point(13, 455);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 6;
@@ -160,11 +162,29 @@ namespace TimeSpaceGenerator
             this.GenerateXmlFileButton.UseVisualStyleBackColor = true;
             this.GenerateXmlFileButton.Click += new System.EventHandler(this.GenerateXmlFileButton_Click);
             // 
+            // LabelTextBox
+            // 
+            this.LabelTextBox.Location = new System.Drawing.Point(13, 98);
+            this.LabelTextBox.Name = "LabelTextBox";
+            this.LabelTextBox.Size = new System.Drawing.Size(395, 20);
+            this.LabelTextBox.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Description";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 692);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.LabelTextBox);
             this.Controls.Add(this.GenerateXmlFileButton);
             this.Controls.Add(this.XmlFileNameTextBox);
             this.Controls.Add(this.label2);
@@ -199,6 +219,8 @@ namespace TimeSpaceGenerator
         private Button ExitButton;
         private TextBox XmlFileNameTextBox;
         private Button GenerateXmlFileButton;
+        private TextBox LabelTextBox;
+        private Label label3;
     }
 }
 

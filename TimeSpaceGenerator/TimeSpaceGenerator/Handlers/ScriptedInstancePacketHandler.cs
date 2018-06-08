@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core.Handling;
 using TimeSpaceGenerator.Enums;
+using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Managers;
 using TimeSpaceGenerator.Objects;
@@ -60,8 +61,11 @@ namespace TimeSpaceGenerator.Handlers
 
         public void RsfmPacket(RsfmPacket packet)
         {
+            //TODO: Fix this later
+            /*
             ScriptManager.Instance.Data[0] = "rsfm 5 2 0 0";
             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendPacket, ScriptManager.Instance.Data));
+            */
         }
 
         public void PreqPacket(PreqPacket packet)
@@ -105,15 +109,16 @@ namespace TimeSpaceGenerator.Handlers
         public void NpcReqPacket(NpcReqPacket packet)
         {
             ScriptManager.Instance.Data[0] = packet.Dialog;
-            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.NpcDialog, ScriptManager.Instance.Data));
+            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.NpcDialog, ScriptManager.Instance.Data, numericData: packet.Dialog));
         }
 
         public void MsgPacket(MsgPacket packet)
         {
             ScriptManager.Instance.Data[0] = packet.Message;
+            ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.CorruptedPacket, "msg : " + ScriptManager.Instance.Data[0]));
             ScriptManager.Instance.Data[1] = packet.Type;
 
-            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data));
+            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: packet.Message));
         }
 
         public void MinfoPacket(MinfoPacket packet)
@@ -198,13 +203,13 @@ namespace TimeSpaceGenerator.Handlers
             {
                 ScriptManager.Instance.Data[0] = portal3.PortalId;
                 ScriptManager.Instance.Data[1] = packet.PortalType;
-                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data));
+                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId));
             }
         }
 
         public void EvntPacket(EvntPacket packet)
         {
-            switch ((ClockType)packet.Type)
+            switch (packet.Type)
             {
                 case ClockType.SimpleClock:
                     if (packet.BaseSecondsRemaining == packet.DeciSecondsRemaining)
@@ -247,12 +252,17 @@ namespace TimeSpaceGenerator.Handlers
                             ScriptManager.Instance.Clock1 = clock2;
                             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.RemoveMapClock, ScriptManager.Instance.Data));
                         }
+                        else if (ScriptManager.Instance.Clock1 != null)
+                        {
+                            ScriptManager.Instance.Clock1 = null;
+                            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.RemoveMapClock, ScriptManager.Instance.Data));
+                        }
                     }
                     break;
                 case ClockType.TimeSpaceClock:
                     if (!ScriptManager.Instance.IsGenerated)
                     {
-                        ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript(ScriptManager.Instance.Script);
+                        ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript();
                         ScriptManager.Instance.IsGenerated = true;
                     }
                     break;
@@ -288,7 +298,7 @@ namespace TimeSpaceGenerator.Handlers
 
         public void AtPacket(AtPacket packet)
         {
-            ScriptManager.Instance.Map1 = new Map(packet.MapId, (byte)(ScriptManager.Instance.Script.Maps.Count), ScriptManager.Instance.IndexX, ScriptManager.Instance.IndexY);
+            ScriptManager.Instance.Map1 = new Map(packet.MapId, (byte)(ScriptManager.Instance.Script.Maps.Count + 1), ScriptManager.Instance.IndexX, ScriptManager.Instance.IndexY);
 
             ScriptManager.Instance.MapMonsters.Clear();
             ScriptManager.Instance.Flag1 = true;
@@ -321,10 +331,9 @@ namespace TimeSpaceGenerator.Handlers
 
                 if (ScriptManager.Instance.Portal1 != null)
                 {
-                    //Todo: Not quite sure about this, maybe the unknown values actually are the Portal position
                     ScriptManager.Instance.Portal1.DestX = packet.PositionX;
                     ScriptManager.Instance.Portal1.DestY = packet.PositionY;
-                    ScriptManager.Instance.Portal1.DestMapId = ScriptManager.Instance.Script.Maps.Count == 0 ? ScriptManager.Instance.Script.Maps.Count : ScriptManager.Instance.Script.Maps.Count -1;
+                    ScriptManager.Instance.Portal1.DestMapId = ScriptManager.Instance.Script.Maps.Count;
                 }
             }
         }

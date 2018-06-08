@@ -95,7 +95,7 @@ namespace TimeSpaceGenerator.Managers
                 {
                     if (Num1 == (byte)1)
                     {
-                        Script.Info.Label = str;
+                      //  Script.Info.Label = str;
                     }
                     else
                     {
@@ -141,56 +141,43 @@ namespace TimeSpaceGenerator.Managers
 
         public void AddEvent(object target, string eventName, Event evt)
         {
-            if (target is Monster monster)
+            switch (target)
             {
-                monster.OnDeathEvents.Add(evt);
-            }
-            else
-            {
-                Map map;
-                if ((map = target as Map) != null)
-                {
-                    string str = eventName;
-                    if (str != "OnCharacterDiscoveringMap")
+                case Monster monster:
+                    monster.OnDeathEvents.Add(evt);
+                    break;
+                case Map map when eventName != "OnCharacterDiscoveringMap":
+                    if (eventName != "OnMapClear")
                     {
-                        if (str != "OnMapClear")
-                        {
-                            return;
-                        }
+                        return;
+                    }
 
-                        map.OnMapClear.Add(evt);
-                    }
-                    else
+                    map.OnMapClear.Add(evt);
+                    break;
+                case Map map:
+                    map.OnCharacterDiscoveringMap.Add(evt);
+                    break;
+                case Button button:
+                    button.OnFirstEnable.Add(evt);
+                    break;
+                default:
+                    if (!(target is Portal portal))
                     {
-                        map.OnCharacterDiscoveringMap.Add(evt);
+                        return;
                     }
-                }
-                else
-                {
-                    if (target is Button button)
-                    {
-                        button.OnFirstEnable.Add(evt);
-                    }
-                    else
-                    {
-                        if (!(target is Portal portal))
-                        {
-                            return;
-                        }
 
-                        portal.OnTraversalEvent.Add(evt);
-                    }
-                }
+                    portal.OnTraversalEvent.Add(evt);
+                    break;
             }
         }
 
 
         //TODO: Split and cleanup this shit
-        public string GenerateScript(Objects.Script script)
+        public string GenerateScript()
         {
             string[] space = ScriptHelper.Instance.Space;
-            string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + string.Format("{0}<Globals>\r\n", space[0]) + string.Format("{0}<Label Value=\"{1}\"/>\r\n", space[1], script.Info.Label) + string.Format("{0}<Title Value=\"{1}\"/>\r\n", space[1], script.Info.Title) + string.Format("{0}<LevelMinimum Value=\"{1}\"/>\r\n", space[1], script.Info.LevelMinimum) + string.Format("{0}<LevelMaximum Value=\"{1}\"/>\r\n", space[1], (script.Info.LevelMax == 0 ? 99 : script.Info.LevelMax)) + string.Format("{0}<Lives Value=\"{1}\"/>\r\n", space[1], script.Info.Lives) + string.Format("{0}<RequieredItems>\r\n", space[1]) + string.Format("{0}<Item VNum=\"1012\" Amount=\"{1}\" />\r\n", space[2], (object)script.Info.SumOfRequired) + string.Format("{0}</RequieredItems>\r\n", space[1]) + string.Format("{0}<DrawItems>\r\n", space[1]);
-            foreach (Item obj in script.Info.DrawGift)
+            string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + string.Format("{0}<Globals>\r\n", space[0]) + string.Format("{0}<Label Value=\"{1}\"/>\r\n", space[1], Script.Info.Label) + string.Format("{0}<Title Value=\"{1}\"/>\r\n", space[1], Script.Info.Title) + string.Format("{0}<LevelMinimum Value=\"{1}\"/>\r\n", space[1], Script.Info.LevelMinimum) + string.Format("{0}<LevelMaximum Value=\"{1}\"/>\r\n", space[1], (Script.Info.LevelMax == 0 ? 99 : Script.Info.LevelMax)) + string.Format("{0}<Lives Value=\"{1}\"/>\r\n", space[1], Script.Info.Lives) + string.Format("{0}<RequieredItems>\r\n", space[1]) + string.Format("{0}<Item VNum=\"1012\" Amount=\"{1}\" />\r\n", space[2], (object)Script.Info.SumOfRequired) + string.Format("{0}</RequieredItems>\r\n", space[1]) + string.Format("{0}<DrawItems>\r\n", space[1]);
+            foreach (Item obj in Script.Info.DrawGift)
             {
                 if (obj.Vnum != -1)
                 {
@@ -198,7 +185,7 @@ namespace TimeSpaceGenerator.Managers
                 }
             }
             string str2 = str1 + string.Format("{0}</DrawItems>\r\n", space[1]) + string.Format("{0}<SpecialItems>\r\n", space[1]);
-            foreach (Item obj in script.Info.Special)
+            foreach (Item obj in Script.Info.Special)
             {
                 if (obj.Vnum != -1)
                 {
@@ -206,7 +193,7 @@ namespace TimeSpaceGenerator.Managers
                 }
             }
             string str3 = str2 + string.Format("{0}</SpecialItems>\r\n", space[1]) + string.Format("{0}<GiftItems>\r\n", space[1]);
-            foreach (Item bonu in script.Info.Bonus)
+            foreach (Item bonu in Script.Info.Bonus)
             {
                 if (bonu.Vnum != -1)
                 {
@@ -214,7 +201,7 @@ namespace TimeSpaceGenerator.Managers
                 }
             }
             string str4 = str3 + string.Format("{0}</GiftItems>\r\n", space[1]) + string.Format("{0}</Globals>\r\n", space[0]) + string.Format("{0}<InstanceEvents>\r\n", space[0]);
-            foreach (Map map in script.Maps.OrderBy(s => s.Id))
+            foreach (Map map in Script.Maps.OrderBy(s => s.Id))
             {
                 str4 += string.Format("{0}<CreateMap Map=\"{1}\" VNum=\"{2}\" IndexX=\"{3}\" IndexY=\"{4}\">\r\n", space[1], map.Id, map.Vnum, map.IndexX, map.IndexY);
                 if (map.OnCharacterDiscoveringMap.Any())
@@ -264,7 +251,7 @@ namespace TimeSpaceGenerator.Managers
                         if (portal.OnTraversalEvent.Any<Event>())
                         {
                             str4 += string.Format("{0}<SpawnPortal IdOnMap=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\" Type=\"{4}\" ToMap=\"{5}\" ToX =\"{6}\" ToY =\"{7}\">\r\n", (object)space[2], (object)portal.PortalId, (object)portal.PosX, (object)portal.PosY, (object)portal.PortalType, (object)portal.DestMapId, (object)portal.DestX, (object)portal.DestY);
-                            str4 += string.Format("{0}<OnTraversalEvent>\r\n", space[3]);
+                            str4 += string.Format("{0}<OnTraversal>\r\n", space[3]);
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
                                 str4 += string.Format("{0}{1}\r\n", space[4], evt.SetEvent(4));
@@ -275,7 +262,7 @@ namespace TimeSpaceGenerator.Managers
                             {
                                 str4 += string.Format("{0}<RefreshMapItems/>\r\n", space[3]);
                             }
-                            str4 += string.Format("{0}</OnTraversalEvent>\r\n", space[3]);
+                            str4 += string.Format("{0}</OnTraversal>\r\n", space[3]);
                             str4 += string.Format("{0}</SpawnPortal>\r\n", space[2]);
                         }
                         else

@@ -26,10 +26,12 @@ namespace TimeSpaceGenerator.Helpers
 
         public ScriptHelper()
         {
-            this.Space = new string[20];
-            this.Space[0] = "   ";
-            for (int index = 1; index < this.Space.Length; ++index)
-                this.Space[index] = this.Space[index - 1] + this.Space[0];
+            Space = new string[20];
+            Space[0] = "   ";
+            for (int index = 1; index < Space.Length; ++index)
+            {
+                Space[index] = Space[index - 1] + Space[0];
+            }
         }
 
     }

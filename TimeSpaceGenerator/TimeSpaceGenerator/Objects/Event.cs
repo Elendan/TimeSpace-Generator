@@ -1,25 +1,39 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TimeSpaceGenerator.Enums;
+using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Helpers;
 
 namespace TimeSpaceGenerator.Objects
 {
     public class Event
     {
-        public Event(EventType type, object[] data = null, Monster monster = null)
+        public Event(EventType type, object[] data = null, Monster monster = null, int numericData = 0, string textData = null)
         {
-
+            Type = type;
+            Data = data;
+            MonsterToSummon = monster;
+            TextData = textData;
+            NumericData = numericData;
         }
 
         public EventType Type { get; set; }
 
+        public int NumericData { get; set; }
+
         public object[] Data { get; set; }
+
+        public string TextData { get; set; }
 
         public Monster MonsterToSummon { get; set; }
 
         //Ik, this is ugly af
         public string SetEvent(byte space = 0)
         {
+            if (Type == EventType.NpcDialog)
+            {
+                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.WrongFormat, "Data : " + NumericData.ToString()));
+            }
             switch (Type)
             {
                 case EventType.SummonMonster:
@@ -47,9 +61,9 @@ namespace TimeSpaceGenerator.Objects
                 case EventType.ClearMonster:
                     return "<ClearMapMonsters/>";
                 case EventType.NpcDialog:
-                    return string.Format("<NpcDialog Value=\"{0}\"/>", Data[0]);
+                    return string.Format("<NpcDialog Value=\"{0}\"/>", NumericData);
                 case EventType.ChangePortalType:
-                    return string.Format("<ChangePortalType IdOnMap=\"{0}\" Type=\"{1}\"/>", Data[0], Data[1]);
+                    return string.Format("<ChangePortalType IdOnMap=\"{0}\" Type=\"{1}\"/>", NumericData, 2); //TODO: Fix this
                 case EventType.AddClockTime:
                     return string.Format("<AddClockTime Value=\"{0}\"/>", Data[0]);
                 case EventType.MapClock:
@@ -59,7 +73,7 @@ namespace TimeSpaceGenerator.Objects
                 case EventType.RemoveMapClock:
                     return "<StopMapClock/>";
                 case EventType.SendMsg:
-                    return string.Format("<SendMessage Value=\"{0}\" Type=\"{1}\"/>", Data[0], Data[1]);
+                    return string.Format("<SendMessage Value=\"{0}\" Type=\"{1}\"/>", TextData, Data[1]);
             }
 
             return string.Empty;
