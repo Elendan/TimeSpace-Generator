@@ -158,6 +158,7 @@ namespace TimeSpaceGenerator
             this.GenerateXmlFileButton.TabIndex = 10;
             this.GenerateXmlFileButton.Text = "Generate File";
             this.GenerateXmlFileButton.UseVisualStyleBackColor = true;
+            this.GenerateXmlFileButton.Click += new System.EventHandler(this.GenerateXmlFileButton_Click);
             // 
             // Form1
             // 

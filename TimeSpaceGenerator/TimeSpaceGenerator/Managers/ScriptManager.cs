@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Objects;
@@ -33,6 +34,8 @@ namespace TimeSpaceGenerator.Managers
         #endregion
 
         #region Properties
+
+        public bool IsGenerated { get; set; }
 
         public static ScriptManager Instance => _instance ?? (_instance = new ScriptManager());
 
@@ -75,6 +78,8 @@ namespace TimeSpaceGenerator.Managers
         public string EventName { get; set; }
 
         public object[] Data { get; set; }
+
+        public string ScriptData { get; set; }
 
         #endregion
 

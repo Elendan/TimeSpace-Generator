@@ -250,7 +250,11 @@ namespace TimeSpaceGenerator.Handlers
                     }
                     break;
                 case ClockType.TimeSpaceClock:
-                    //Todo: CreateXmlScript
+                    if (!ScriptManager.Instance.IsGenerated)
+                    {
+                        ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript(ScriptManager.Instance.Script);
+                        ScriptManager.Instance.IsGenerated = true;
+                    }
                     break;
             }
         }
@@ -284,7 +288,7 @@ namespace TimeSpaceGenerator.Handlers
 
         public void AtPacket(AtPacket packet)
         {
-            ScriptManager.Instance.Map1 = new Map(packet.MapId, (byte)(ScriptManager.Instance.Script.Maps.Count + 1), ScriptManager.Instance.IndexX, ScriptManager.Instance.IndexY);
+            ScriptManager.Instance.Map1 = new Map(packet.MapId, (byte)(ScriptManager.Instance.Script.Maps.Count), ScriptManager.Instance.IndexX, ScriptManager.Instance.IndexY);
 
             ScriptManager.Instance.MapMonsters.Clear();
             ScriptManager.Instance.Flag1 = true;
@@ -320,7 +324,7 @@ namespace TimeSpaceGenerator.Handlers
                     //Todo: Not quite sure about this, maybe the unknown values actually are the Portal position
                     ScriptManager.Instance.Portal1.DestX = packet.PositionX;
                     ScriptManager.Instance.Portal1.DestY = packet.PositionY;
-
+                    ScriptManager.Instance.Portal1.DestMapId = ScriptManager.Instance.Script.Maps.Count == 0 ? ScriptManager.Instance.Script.Maps.Count : ScriptManager.Instance.Script.Maps.Count -1;
                 }
             }
         }
