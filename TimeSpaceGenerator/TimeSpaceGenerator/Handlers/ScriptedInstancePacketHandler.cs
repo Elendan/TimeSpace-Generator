@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Linq;
 using TimeSpaceGenerator.Core.Handling;
 using TimeSpaceGenerator.Enums;
-using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Managers;
 using TimeSpaceGenerator.Objects;
 using TimeSpaceGenerator.Packets;
-using Button = TimeSpaceGenerator.Objects.Button;
 
 namespace TimeSpaceGenerator.Handlers
 {
@@ -35,10 +31,10 @@ namespace TimeSpaceGenerator.Handlers
             //Title
             ScriptManager.Instance.Script.Info.Title = packet.TitleAndLabel;
             ScriptManager.Instance.FileName = $"Ts - {packet.LevelMinimum}.xml";
-            
+
             // Level
-	    ScriptManager.Instance.Script.Info.LevelMinimum = packet.LevelMinimum;
-	    ScriptManager.Instance.Script.Info.LevelMax = packet.LevelMaximum;
+            ScriptManager.Instance.Script.Info.LevelMinimum = packet.LevelMinimum;
+            ScriptManager.Instance.Script.Info.LevelMax = packet.LevelMaximum;
         }
 
         public void WalkPacket(WalkPacket packet)
@@ -94,7 +90,7 @@ namespace TimeSpaceGenerator.Handlers
             ScriptManager.Instance.Portal1 = ScriptManager.Instance.Map1 != null
                 ? ScriptManager.Instance.Map1.MapPortals.FirstOrDefault(s =>
                 {
-                    if (s.PosX != ScriptManager.Instance.PosX && s.PosX != (ScriptManager.Instance.PosX - 1) && s.PosX != ScriptManager.Instance.PosX + 1)
+                    if (s.PosX != ScriptManager.Instance.PosX && s.PosX != (ScriptManager.Instance.PosX - 1) && s.PosX != (ScriptManager.Instance.PosX + 1))
                     {
                         return false;
                     }
@@ -120,6 +116,7 @@ namespace TimeSpaceGenerator.Handlers
                         ScriptManager.Instance.Flag3 = true;
                         ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ClearMonster, ScriptManager.Instance.Data));
                     }
+
                     break;
                 case VisualType.MapObject:
                     ScriptManager.Instance.Target = ScriptManager.Instance.Map1.MapButtons.FirstOrDefault(s => s.ButtonId == packet.EntityId);
@@ -158,6 +155,7 @@ namespace TimeSpaceGenerator.Handlers
                     {
                         ScriptManager.Instance.Map1.MapNpcs.Add(new Npc(packet.NpcMonsterVnum, packet.MateTransportId, packet.PosX, packet.PosY));
                     }
+
                     break;
                 case VisualType.Monster:
                     if (ScriptManager.Instance.Flag1)
@@ -180,6 +178,7 @@ namespace TimeSpaceGenerator.Handlers
                         ScriptManager.Instance.Target = ScriptManager.Instance.Monster1;
                         ScriptManager.Instance.EventName = "OnDeath";
                     }
+
                     var monster4 = new Monster(packet.NpcMonsterVnum, packet.MateTransportId, packet.PosX, packet.PosY);
                     ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SummonMonster, null, monster4));
                     ScriptManager.Instance.MapMonsters.Add(monster4);
@@ -191,6 +190,7 @@ namespace TimeSpaceGenerator.Handlers
                     {
                         ScriptManager.Instance.Map1.MapButtons.Add(new Button(packet.NpcMonsterVnum, packet.MateTransportId, packet.PosX, packet.PosY));
                     }
+
                     break;
             }
         }
@@ -221,17 +221,18 @@ namespace TimeSpaceGenerator.Handlers
 
             if (packet.PortalType == 5)
             {
-
                 ScriptManager.Instance.Data[0] = 0;
-                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId, specialValue: true));
+                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName,
+                    new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId, specialValue: true));
             }
 
             if (portal3 != null && portal3.PortalType != packet.PortalType)
             {
                 ScriptManager.Instance.Data[0] = portal3.PortalId;
                 ScriptManager.Instance.Data[1] = packet.PortalType;
-                
-                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId));
+
+                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName,
+                    new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId));
             }
         }
 
@@ -285,6 +286,7 @@ namespace TimeSpaceGenerator.Handlers
                             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.RemoveMapClock, ScriptManager.Instance.Data));
                         }
                     }
+
                     break;
                 case ClockType.TimeSpaceClock:
                     if (!ScriptManager.Instance.IsGenerated)
@@ -292,6 +294,7 @@ namespace TimeSpaceGenerator.Handlers
                         ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript();
                         ScriptManager.Instance.IsGenerated = true;
                     }
+
                     break;
             }
         }
@@ -353,6 +356,7 @@ namespace TimeSpaceGenerator.Handlers
                     ScriptManager.Instance.Map2.IndexX = ScriptManager.Instance.IndexX;
                     ScriptManager.Instance.Map2.IndexY = ScriptManager.Instance.IndexY;
                 }
+
                 ScriptManager.Instance.Script.Maps.Add(ScriptManager.Instance.Map1);
 
                 if (ScriptManager.Instance.Portal1 != null)

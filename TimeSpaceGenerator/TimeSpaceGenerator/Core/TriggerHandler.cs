@@ -13,18 +13,15 @@ namespace TimeSpaceGenerator.Core
 {
     public class TriggerHandler
     {
-        #region Instantiation
-
-        public TriggerHandler()
-        {
-            HandlerMethods = new Dictionary<string, HandlerMethodReference>();
-        }
-
-        #endregion
-
         #region Members
 
         private IDictionary<string, HandlerMethodReference> _handlerMethods;
+
+        #endregion
+
+        #region Instantiation
+
+        public TriggerHandler() => HandlerMethods = new Dictionary<string, HandlerMethodReference>();
 
         #endregion
 
@@ -86,6 +83,7 @@ namespace TimeSpaceGenerator.Core
                     ScriptManager.Instance.Script.Info.Label = packet;
                     ScriptManager.Instance.LabelSet = true;
                 }
+
                 ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.MissingPacket, $"Handler not found for packet : {packetHeader}"));
                 return;
             }
@@ -95,7 +93,6 @@ namespace TimeSpaceGenerator.Core
                 // call actual handler method
                 if (methodReference.PacketDefinitionParameterType != null)
                 {
-
                     object deserializedPacket = PacketFactory.Deserialize(packet,
                         methodReference.PacketDefinitionParameterType);
 

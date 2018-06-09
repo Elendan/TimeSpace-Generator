@@ -4,6 +4,6 @@
     {
         Npc = 2,
         Monster = 3,
-        Button = 9,
+        Button = 9
     }
 }

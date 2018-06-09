@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core;
-using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Handlers;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Managers;
 using TimeSpaceGenerator.Objects;
+using XmlFilePreview;
 
 namespace TimeSpaceGenerator
 {
@@ -19,12 +18,6 @@ namespace TimeSpaceGenerator
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
-
-        public TriggerHandler PacketTriggerHandler { get; set; }
 
         public string XmlFile;
 
@@ -34,6 +27,14 @@ namespace TimeSpaceGenerator
             PacketTriggerHandler = new TriggerHandler();
             PacketTriggerHandler.GenerateHandlerReferences(typeof(ScriptedInstancePacketHandler));
         }
+
+        public TriggerHandler PacketTriggerHandler { get; set; }
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
 
         private void GenerateXmlButton_Click(object sender, EventArgs e)
         {
@@ -50,6 +51,7 @@ namespace TimeSpaceGenerator
                     //I know this is dirty as fuck
                     cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
                 }
+
                 string[] packetSplit = cpy.Split(' ');
                 cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
                 PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
@@ -66,7 +68,7 @@ namespace TimeSpaceGenerator
                 ScriptManager.Instance.IsGenerated = true;
             }
 
-           XmlFile = ScriptManager.Instance.ScriptData;
+            XmlFile = ScriptManager.Instance.ScriptData;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -76,20 +78,21 @@ namespace TimeSpaceGenerator
 
         private void PacketsLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
-            string path = string.Format("Scripts");
+            string path = "Scripts";
             string str = $"{(object)path}\\{(object)XmlFileNameTextBox.Text}";
             if (!Directory.Exists(path))
+            {
                 Directory.CreateDirectory(path);
+            }
+
             File.Create($"{(object)str}").Close();
             File.WriteAllText($"{(object)str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
             MessageBox.Show("File sucessfuly created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -97,7 +100,7 @@ namespace TimeSpaceGenerator
 
         private void buttonMinimize_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -107,14 +110,14 @@ namespace TimeSpaceGenerator
 
         private void buttonXmlFilePreview_Click(object sender, EventArgs e)
         {
-            var x = new XmlFilePreview.XmlFilePreviewWindow(XmlFile);
+            var x = new XmlFilePreviewWindow(XmlFile);
             x.ShowDialog();
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
-            SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
     }
 }

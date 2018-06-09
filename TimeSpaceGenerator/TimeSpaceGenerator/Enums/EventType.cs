@@ -12,6 +12,6 @@
         SendPacket,
         RemoveMapClock,
         SendMsg,
-        Wave,
+        Wave
     }
 }

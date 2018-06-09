@@ -4,10 +4,7 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Wave
     {
-        public Wave()
-        {
-            Events = new List<Event>();
-        }
+        public Wave() => Events = new List<Event>();
 
         public short OffSet { get; set; }
 

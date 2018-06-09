@@ -6,8 +6,8 @@ namespace TimeSpaceGenerator.Objects
     {
         public Script()
         {
-            this.Maps = new List<Map>();
-            this.Info = new TimeSpaceInfo();
+            Maps = new List<Map>();
+            Info = new TimeSpaceInfo();
         }
 
         public List<Map> Maps { get; set; }

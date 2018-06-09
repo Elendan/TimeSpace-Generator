@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TimeSpaceGenerator.Helpers
 {
     public class PacketHelper
     {
-        #region Singleton
-
-        private static PacketHelper _instance;
-
-        public static PacketHelper Instance => _instance ?? (_instance = new PacketHelper());
-
-        #endregion
-
         #region Instantiation
 
         public PacketHelper()
         {
             ReplacableChars = new List<char>();
-            ReplacableChars.AddRange(new List<char> {'.'});
+            ReplacableChars.AddRange(new List<char> { '.' });
         }
 
         #endregion
@@ -29,6 +17,14 @@ namespace TimeSpaceGenerator.Helpers
         #region Properties
 
         public List<char> ReplacableChars { get; set; }
+
+        #endregion
+
+        #region Singleton
+
+        private static PacketHelper _instance;
+
+        public static PacketHelper Instance => _instance ?? (_instance = new PacketHelper());
 
         #endregion
 

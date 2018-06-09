@@ -4,7 +4,6 @@ using System.Xml;
 using System.Xml.Linq;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Objects;
-using Button = TimeSpaceGenerator.Objects.Button;
 
 namespace TimeSpaceGenerator.Managers
 {
@@ -20,7 +19,7 @@ namespace TimeSpaceGenerator.Managers
 
         public ScriptManager()
         {
-            Script = new Objects.Script();
+            Script = new Script();
             MapMonsters = new List<Monster>();
             Doc = new XmlDocument();
             Data = new object[5];
@@ -34,8 +33,8 @@ namespace TimeSpaceGenerator.Managers
 
         public static ScriptManager Instance => _instance ?? (_instance = new ScriptManager());
 
-        public Objects.Script Script { get; set; }
-        
+        public Script Script { get; set; }
+
         public Map Map1 { get; set; }
 
         public Map Map2 { get; set; }
@@ -133,6 +132,7 @@ namespace TimeSpaceGenerator.Managers
                     str1 += $"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
                 }
             }
+
             string str2 = str1 + $"</DrawItems>\r\n" + $"<SpecialItems>\r\n";
             foreach (Item obj in Script.Info.Special)
             {
@@ -141,6 +141,7 @@ namespace TimeSpaceGenerator.Managers
                     str2 += $"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
                 }
             }
+
             string str3 = str2 + $"</SpecialItems>\r\n" + $"<GiftItems>\r\n";
             foreach (Item bonu in Script.Info.Bonus)
             {
@@ -149,6 +150,7 @@ namespace TimeSpaceGenerator.Managers
                     str3 += $"<Item VNum=\"{bonu.Vnum}\" Amount=\"{bonu.Amount}\"/>\r\n";
                 }
             }
+
             string str4 = str3 + $"</GiftItems>\r\n" + $"</Globals>\r\n" + $"<InstanceEvents>\r\n";
             foreach (Map map in Script.Maps.OrderBy(s => s.Id))
             {
@@ -160,11 +162,13 @@ namespace TimeSpaceGenerator.Managers
                     {
                         str4 += $"{characterDiscovering.SetEvent(3)}\r\n";
                     }
+
                     List<Event> characterDiscoveringMap = map.OnCharacterDiscoveringMap;
                     if (characterDiscoveringMap.Any(s => s.Type == EventType.ChangePortalType))
                     {
                         str4 += $"<RefreshMapItems/>\r\n";
                     }
+
                     str4 += $"</OnCharacterDiscoveringMap>\r\n";
                 }
 
@@ -172,12 +176,16 @@ namespace TimeSpaceGenerator.Managers
                 {
                     str4 += $"<OnMapClean>\r\n";
                     foreach (Event evt in map.OnMapClear)
+                    {
                         str4 += $"{evt.SetEvent(3)}\r\n";
+                    }
+
                     List<Event> onMapClear = map.OnMapClear;
                     if (onMapClear.Any(s => s.Type == EventType.ChangePortalType))
                     {
                         str4 += $"<RefreshMapItems/>\r\n";
                     }
+
                     str4 += $"</OnMapClean>\r\n";
                 }
 
@@ -209,11 +217,13 @@ namespace TimeSpaceGenerator.Managers
                                 str4 +=
                                     $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\">\r\n";
                             }
+
                             str4 += $"<OnTraversal>\r\n";
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
                                 str4 += $"{evt.SetEvent(4)}\r\n";
                             }
+
                             List<Event> onTraversalEvent = portal.OnTraversalEvent;
 
                             if (portal.DestMapId == 0)
@@ -225,6 +235,7 @@ namespace TimeSpaceGenerator.Managers
                             {
                                 str4 += $"<RefreshMapItems/>\r\n";
                             }
+
                             str4 += $"</OnTraversal>\r\n";
                             str4 += $"</SpawnPortal>\r\n";
                         }
@@ -235,6 +246,7 @@ namespace TimeSpaceGenerator.Managers
                         }
                     }
                 }
+
                 if (map.MapNpcs.Any())
                 {
                     str4 += $"\r\n<!-- Npcs -->\r\n";
@@ -244,6 +256,7 @@ namespace TimeSpaceGenerator.Managers
                             $"<SummonNpc VNum=\"{npc.Vnum}\" PositionX=\"{npc.PosX}\" PositionY=\"{npc.PosY}\" {(npc.IsMate ? "IsMate=\"True\"" : "")} {(npc.IsProtected ? "IsProtected=\"True\"" : "")}/>\r\n";
                     }
                 }
+
                 if (map.MapButtons.Any())
                 {
                     int num = 0;
@@ -259,20 +272,25 @@ namespace TimeSpaceGenerator.Managers
                             {
                                 str4 += $"{evt.SetEvent(4)}\r\n";
                             }
+
                             List<Event> onFirstEnable = button.OnFirstEnable;
                             if (onFirstEnable.Any(s => s.Type == EventType.ChangePortalType))
                             {
                                 str4 += $"<RefreshMapItems/>\r\n";
                             }
+
                             str4 += $"<RefreshMapItems/>\r\n";
                             str4 += $"</OnFirstEnable>\r\n";
                             str4 += $"</SpawnButton>\r\n";
                         }
                         else
+                        {
                             str4 +=
                                 $"<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\"/>\r\n";
+                        }
                     }
                 }
+
                 if (map.MapMonsters.Any())
                 {
                     str4 += $"\r\n<!-- Monsters -->\r\n";
@@ -292,22 +310,26 @@ namespace TimeSpaceGenerator.Managers
                             {
                                 str4 += $"{deathEvent.SetEvent(4)}\r\n";
                             }
+
                             List<Event> deathEvents = monster.OnDeathEvents;
                             if (deathEvents.Any(s => s.Type == EventType.ChangePortalType))
                             {
                                 str4 += $"<RefreshMapItems/>\r\n";
                             }
+
                             str4 += $"</OnDeath>\r\n";
                             str4 += $"</SummonMonster>\r\n";
                         }
                     }
                 }
+
                 str4 += $"</CreateMap>\r\n";
             }
 
-            string ret = XElement.Parse(str4 + $"</InstanceEvents>\r\n" + "</Definition>").ToString();            
+            string ret = XElement.Parse(str4 + $"</InstanceEvents>\r\n" + "</Definition>").ToString();
             return ret;
         }
+
         #endregion
     }
 }

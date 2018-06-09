@@ -7,6 +7,7 @@ namespace TimeSpaceGenerator.Packets
     public class InPacket : PacketDefinition
     {
         #region Properties
+
         [PacketIndex(0)]
         public VisualType EntityType { get; set; }
 
@@ -84,6 +85,7 @@ namespace TimeSpaceGenerator.Packets
 
         [PacketIndex(25)]
         public int Unkown13 { get; set; }
+
         #endregion
     }
 }

@@ -7,15 +7,21 @@ namespace TimeSpaceGenerator.Errors
 {
     public class ErrorManager
     {
+        #region Members
+
+        private static ErrorManager _instance;
+
+        #endregion
+
         #region instantiation
 
         public ErrorManager() => Error = new List<KeyValuePair<ErrorType, string>>();
 
         #endregion
 
-        #region Members
+        #region Singleton
 
-        private static ErrorManager _instance;
+        public static ErrorManager Instance => _instance ?? (_instance = new ErrorManager());
 
         #endregion
 
@@ -41,12 +47,6 @@ namespace TimeSpaceGenerator.Errors
                 errorTextBox.Text += $"{error.Key}: {error.Value}" + Environment.NewLine;
             }
         }
-
-        #endregion
-
-        #region Singleton
-
-        public static ErrorManager Instance => _instance ?? (_instance = new ErrorManager());
 
         #endregion
     }

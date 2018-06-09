@@ -30,7 +30,7 @@ namespace TimeSpaceGenerator.Core.Serializing
         /// </summary>
         /// <param name="packetContent">The content to deseralize</param>
         /// <param name="packetType">The type of the packet to deserialize to</param>
-        ///     Include the keep alive identity or exclude it
+        /// Include the keep alive identity or exclude it
         /// </param>
         /// <returns>The deserialized packet.</returns>
         public static PacketDefinition Deserialize(string packetContent, Type packetType)
@@ -278,7 +278,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             foreach (Type packetBaseType in typeof(TPacketDefinition).Assembly.GetTypes().Where(p =>
             {
                 Type memberInfo = typeof(TPacketDefinition).BaseType;
-                return memberInfo != null && (!p.IsInterface && memberInfo.IsAssignableFrom(p));
+                return memberInfo != null && !p.IsInterface && memberInfo.IsAssignableFrom(p);
             }))
             {
                 // add to serialization informations
@@ -317,6 +317,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             {
                 _packetSerializationInformations = new Dictionary<Tuple<Type, string>, Dictionary<PacketIndexAttribute, PropertyInfo>>();
             }
+
             _packetSerializationInformations.Add(serializationInformatin.Key, serializationInformatin.Value);
 
             return serializationInformatin;
@@ -328,6 +329,7 @@ namespace TimeSpaceGenerator.Core.Serializing
             {
                 return _packetSerializationInformations.SingleOrDefault(si => si.Key.Item1 == serializationType);
             }
+
             return GenerateSerializationInformations(serializationType); // generic runtime serialization parameter generation
         }
 

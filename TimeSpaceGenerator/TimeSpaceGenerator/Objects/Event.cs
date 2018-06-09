@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using TimeSpaceGenerator.Enums;
-using TimeSpaceGenerator.Errors;
-using TimeSpaceGenerator.Helpers;
 
 namespace TimeSpaceGenerator.Objects
 {
@@ -59,6 +56,7 @@ namespace TimeSpaceGenerator.Objects
                     {
                         concat += $"<RefreshMapItems/>\r\n";
                     }
+
                     return concat + $"</OnDeath>\r\n" + $"</SummonMonster>";
                 case EventType.ClearMonster:
                     return "<ClearMapMonsters/>";
