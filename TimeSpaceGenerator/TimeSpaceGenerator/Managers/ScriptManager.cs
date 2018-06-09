@@ -83,6 +83,8 @@ namespace TimeSpaceGenerator.Managers
 
         public string FileName { get; set; }
 
+        public bool LabelSet { get; set; }
+
         #endregion
 
         #region Methods

@@ -7,6 +7,7 @@ using TimeSpaceGenerator.Core.Handling;
 using TimeSpaceGenerator.Core.Serializing;
 using TimeSpaceGenerator.Enums;
 using TimeSpaceGenerator.Errors;
+using TimeSpaceGenerator.Managers;
 
 namespace TimeSpaceGenerator.Core
 {
@@ -80,6 +81,11 @@ namespace TimeSpaceGenerator.Core
         {
             if (!HandlerMethods.TryGetValue(packetHeader, out HandlerMethodReference methodReference))
             {
+                if (!ScriptManager.Instance.LabelSet)
+                {
+                    ScriptManager.Instance.Script.Info.Label = packet;
+                    ScriptManager.Instance.LabelSet = true;
+                }
                 ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.MissingPacket, $"Handler not found for packet : {packetHeader}"));
                 return;
             }
