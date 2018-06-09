@@ -38,7 +38,7 @@ namespace TimeSpaceGenerator.Errors
         {
             foreach (KeyValuePair<ErrorType, string> error in Error)
             {
-                errorTextBox.Text += $"{error.Value}" + Environment.NewLine;
+                errorTextBox.Text += $"{error.Key}: {error.Value}" + Environment.NewLine;
             }
         }
 
