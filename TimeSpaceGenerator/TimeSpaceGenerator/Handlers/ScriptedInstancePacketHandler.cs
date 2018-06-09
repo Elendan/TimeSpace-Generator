@@ -115,7 +115,6 @@ namespace TimeSpaceGenerator.Handlers
         public void MsgPacket(MsgPacket packet)
         {
             ScriptManager.Instance.Data[0] = packet.Message;
-            ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.CorruptedPacket, "msg : " + ScriptManager.Instance.Data[0]));
             ScriptManager.Instance.Data[1] = packet.Type;
 
             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: packet.Message));
