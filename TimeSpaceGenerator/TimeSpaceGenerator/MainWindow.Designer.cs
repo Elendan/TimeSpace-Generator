@@ -135,7 +135,7 @@ namespace TimeSpaceGenerator
             // 
             this.XmlFileNameTextBox.BackColor = System.Drawing.Color.Silver;
             this.XmlFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.XmlFileNameTextBox.Location = new System.Drawing.Point(566, 92);
+            this.XmlFileNameTextBox.Location = new System.Drawing.Point(608, 95);
             this.XmlFileNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.XmlFileNameTextBox.Name = "XmlFileNameTextBox";
             this.XmlFileNameTextBox.Size = new System.Drawing.Size(314, 19);
@@ -233,7 +233,7 @@ namespace TimeSpaceGenerator
             // buttonXmlFilePreview
             // 
             this.buttonXmlFilePreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonXmlFilePreview.Location = new System.Drawing.Point(763, 25);
+            this.buttonXmlFilePreview.Location = new System.Drawing.Point(805, 28);
             this.buttonXmlFilePreview.Name = "buttonXmlFilePreview";
             this.buttonXmlFilePreview.Size = new System.Drawing.Size(117, 53);
             this.buttonXmlFilePreview.TabIndex = 12;
@@ -244,7 +244,7 @@ namespace TimeSpaceGenerator
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(562, 59);
+            this.label2.Location = new System.Drawing.Point(604, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 19);
             this.label2.TabIndex = 11;
