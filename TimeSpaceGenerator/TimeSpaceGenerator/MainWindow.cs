@@ -40,7 +40,7 @@ namespace TimeSpaceGenerator
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
             ScriptManager.Instance.IsGenerated = false;
-            ScriptManager.Instance.Script = new Script { Info = { Label = LabelTextBox.Text } };
+            ScriptManager.Instance.Script = new Script();
             ScriptManager.Instance.ScriptData = string.Empty;
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {

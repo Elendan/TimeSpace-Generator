@@ -40,8 +40,6 @@ namespace TimeSpaceGenerator
             this.ExitButton = new System.Windows.Forms.Button();
             this.XmlFileNameTextBox = new System.Windows.Forms.TextBox();
             this.GenerateXmlFileButton = new System.Windows.Forms.Button();
-            this.LabelTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonMinimize = new System.Windows.Forms.Button();
@@ -152,26 +150,6 @@ namespace TimeSpaceGenerator
             this.GenerateXmlFileButton.Text = "G E N E R A TE\r\nX M L";
             this.GenerateXmlFileButton.UseVisualStyleBackColor = true;
             this.GenerateXmlFileButton.Click += new System.EventHandler(this.GenerateXmlFileButton_Click);
-            // 
-            // LabelTextBox
-            // 
-            this.LabelTextBox.BackColor = System.Drawing.Color.Silver;
-            this.LabelTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LabelTextBox.Location = new System.Drawing.Point(13, 141);
-            this.LabelTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.LabelTextBox.Name = "LabelTextBox";
-            this.LabelTextBox.Size = new System.Drawing.Size(250, 19);
-            this.LabelTextBox.TabIndex = 11;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 97);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 19);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Description";
             // 
             // panel1
             // 
@@ -321,11 +299,9 @@ namespace TimeSpaceGenerator
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.ErrorTextBox);
             this.Controls.Add(this.PacketTextBox);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PacketsLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.LabelTextBox);
             this.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -351,8 +327,6 @@ namespace TimeSpaceGenerator
         private Button ExitButton;
         private TextBox XmlFileNameTextBox;
         private Button GenerateXmlFileButton;
-        private TextBox LabelTextBox;
-        private Label label3;
         private Panel panel1;
         private Label label4;
         private Button buttonMinimize;

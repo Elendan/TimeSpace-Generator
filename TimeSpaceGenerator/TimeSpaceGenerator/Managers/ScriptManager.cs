@@ -202,14 +202,27 @@ namespace TimeSpaceGenerator.Managers
                     {
                         if (portal.OnTraversalEvent.Any())
                         {
-                            str4 +=
-                                $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n";
+                            if (portal.DestMapId != 0)
+                            {
+                                str4 +=
+                                    $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n";
+                            }
+                            else
+                            {
+                                str4 +=
+                                    $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\">\r\n";
+                            }
                             str4 += $"{space[3]}<OnTraversal>\r\n";
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
                                 str4 += $"{space[4]}{evt.SetEvent(4)}\r\n";
                             }
                             List<Event> onTraversalEvent = portal.OnTraversalEvent;
+
+                            if (portal.DestMapId == 0)
+                            {
+                                str4 += $"{space[4]}<End Type=\"5\"/>\r\n";
+                            }
 
                             if (onTraversalEvent.Any(s => s.Type == EventType.ChangePortalType))
                             {
