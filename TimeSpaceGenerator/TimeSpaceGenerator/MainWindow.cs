@@ -87,11 +87,11 @@ namespace TimeSpaceGenerator
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
             string path = string.Format("Scripts");
-            string str = string.Format("{0}\\{1}", (object)path, (object)XmlFileNameTextBox.Text);
+            string str = $"{(object)path}\\{(object)XmlFileNameTextBox.Text}";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            File.Create(string.Format("{0}", (object)str)).Close();
-            File.WriteAllText(string.Format("{0}", (object)str), ScriptManager.Instance.ScriptData, Encoding.Unicode);
+            File.Create($"{(object)str}").Close();
+            File.WriteAllText($"{(object)str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
             MessageBox.Show("File sucessfuly created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 

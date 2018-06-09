@@ -43,36 +43,39 @@ namespace TimeSpaceGenerator.Objects
 
                     if (!MonsterToSummon.OnDeathEvents.Any())
                     {
-                        return string.Format("<SummonMonster VNum=\"{0}\" PositionX=\"{1}\" PositionY=\"{2}\" {3} {4}/>", MonsterToSummon.Vnum, MonsterToSummon.PosX, MonsterToSummon.PosY, MonsterToSummon.IsTarget ? "IsTarget=\"True\"" : "", MonsterToSummon.IsBonus ? "IsBonus=\"True\"" : "");
+                        return
+                            $"<SummonMonster VNum=\"{MonsterToSummon.Vnum}\" PositionX=\"{MonsterToSummon.PosX}\" PositionY=\"{MonsterToSummon.PosY}\" {(MonsterToSummon.IsTarget ? "IsTarget=\"True\"" : "")} {(MonsterToSummon.IsBonus ? "IsBonus=\"True\"" : "")}/>";
                     }
 
-                    string concat = string.Format("<SummonMonster VNum=\"{0}\" PositionX=\"{1}\" PositionY=\"{2}\" {3} {4}>\r\n", MonsterToSummon.Vnum, MonsterToSummon.PosX, MonsterToSummon.PosY, MonsterToSummon.IsTarget ? "IsTarget=\"True\"" : "", MonsterToSummon.IsBonus ? "IsBonus=\"True\"" : "") + string.Format("{0}<OnDeath>\r\n", ScriptHelper.Instance.Space[space + 1]);
+                    string concat =
+                        $"<SummonMonster VNum=\"{MonsterToSummon.Vnum}\" PositionX=\"{MonsterToSummon.PosX}\" PositionY=\"{MonsterToSummon.PosY}\" {(MonsterToSummon.IsTarget ? "IsTarget=\"True\"" : "")} {(MonsterToSummon.IsBonus ? "IsBonus=\"True\"" : "")}>\r\n" +
+                        $"{ScriptHelper.Instance.Space[space + 1]}<OnDeath>\r\n";
                     foreach (Event evt in MonsterToSummon.OnDeathEvents)
                     {
-                        concat += string.Format("{0}{1}\r\n", ScriptHelper.Instance.Space[space + 2], evt.SetEvent((byte)(space + 2U)));
+                        concat += $"{ScriptHelper.Instance.Space[space + 2]}{evt.SetEvent((byte)(space + 2U))}\r\n";
                     }
 
                     if (MonsterToSummon.OnDeathEvents.Any(s => s.Type == EventType.ChangePortalType))
                     {
-                        concat += string.Format("{0}<RefreshMapItems/>\r\n", ScriptHelper.Instance.Space[space + 2]);
+                        concat += $"{ScriptHelper.Instance.Space[space + 2]}<RefreshMapItems/>\r\n";
                     }
-                    return concat + string.Format("{0}</OnDeath>\r\n", ScriptHelper.Instance.Space[space + 1]) + string.Format("{0}</SummonMonster>", ScriptHelper.Instance.Space[space]);
+                    return concat + $"{ScriptHelper.Instance.Space[space + 1]}</OnDeath>\r\n" + $"{ScriptHelper.Instance.Space[space]}</SummonMonster>";
                 case EventType.ClearMonster:
                     return "<ClearMapMonsters/>";
                 case EventType.NpcDialog:
-                    return string.Format("<NpcDialog Value=\"{0}\"/>", NumericData);
+                    return $"<NpcDialog Value=\"{NumericData}\"/>";
                 case EventType.ChangePortalType:
-                    return string.Format("<ChangePortalType IdOnMap=\"{0}\" Type=\"{1}\"/>", NumericData, SpecialValue ? 4 : 2); //TODO: Fix this
+                    return $"<ChangePortalType IdOnMap=\"{NumericData}\" Type=\"{(SpecialValue ? 4 : 2)}\"/>"; //TODO: Fix this
                 case EventType.AddClockTime:
-                    return string.Format("<AddClockTime Value=\"{0}\"/>", Data[0]);
+                    return $"<AddClockTime Value=\"{Data[0]}\"/>";
                 case EventType.MapClock:
-                    return string.Format("<GenerateMapClock Value=\"{0}\"/>\r\n", Data[0]) + string.Format("<{0}StartMapClock/>", ScriptHelper.Instance.Space[space]);
+                    return $"<GenerateMapClock Value=\"{Data[0]}\"/>\r\n" + $"<{ScriptHelper.Instance.Space[space]}StartMapClock/>";
                 case EventType.SendPacket:
-                    return string.Format("<SendPacket Value=\"{0}\"/>", Data[0]);
+                    return $"<SendPacket Value=\"{Data[0]}\"/>";
                 case EventType.RemoveMapClock:
                     return "<StopMapClock/>";
                 case EventType.SendMsg:
-                    return string.Format("<SendMessage Value=\"{0}\" Type=\"{1}\"/>", TextData, Data[1]);
+                    return $"<SendMessage Value=\"{TextData}\" Type=\"{Data[1]}\"/>";
             }
 
             return string.Empty;
