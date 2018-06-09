@@ -37,7 +37,8 @@ namespace TimeSpaceGenerator.Handlers
             ScriptManager.Instance.FileName = $"Ts - {packet.LevelMinimum}.xml";
             
             // Level
-			ScriptManager.Instance.Script.Info.LevelMinimum = packet.LevelMinimum;
+	    ScriptManager.Instance.Script.Info.LevelMinimum = packet.LevelMinimum;
+	    ScriptManager.Instance.Script.Info.LevelMax = packet.LevelMaximum;
         }
 
         public void WalkPacket(WalkPacket packet)
