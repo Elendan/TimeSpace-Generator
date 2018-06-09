@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C87EE0AA-FA30-4C4B-AE47-104BE7E68CB4}</ProjectGuid>
+    <ProjectGuid>{1DD7F0F7-A7E1-40A5-883B-88129E8083E5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TimeSpaceGenerator</RootNamespace>
-    <AssemblyName>TimeSpaceGenerator</AssemblyName>
+    <RootNamespace>XmlFilePrew</RootNamespace>
+    <AssemblyName>XmlFilePrew</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,70 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\DelegateBuilder.cs" />
-    <Compile Include="Core\Handling\HandlerMethodReference.cs" />
-    <Compile Include="Core\Handling\IPacketHandler.cs" />
-    <Compile Include="Core\Handling\PacketAttribute.cs" />
-    <Compile Include="Core\Serializing\PacketDefinition.cs" />
-    <Compile Include="Core\Serializing\PacketFactory.cs" />
-    <Compile Include="Core\Serializing\PacketHeaderAttribute.cs" />
-    <Compile Include="Core\Serializing\PacketIndexAttribute.cs" />
-    <Compile Include="Core\TriggerHandler.cs" />
-    <Compile Include="Core\Utilities\DependencyContainer.cs" />
-    <Compile Include="Core\Utilities\Singleton.cs" />
-    <Compile Include="Enums\ClockType.cs" />
-    <Compile Include="Enums\ErrorType.cs" />
-    <Compile Include="Enums\EventType.cs" />
-    <Compile Include="Enums\MapItemType.cs" />
-    <Compile Include="Enums\VisualType.cs" />
-    <Compile Include="Errors\ErrorManager.cs" />
-    <Compile Include="MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Handlers\ScriptedInstancePacketHandler.cs" />
-    <Compile Include="Helpers\PacketHelper.cs" />
-    <Compile Include="Helpers\ScriptHelper.cs" />
-    <Compile Include="Managers\ScriptManager.cs" />
-    <Compile Include="Objects\Button.cs" />
-    <Compile Include="Objects\Clock.cs" />
-    <Compile Include="Objects\Event.cs" />
-    <Compile Include="Objects\Item.cs" />
-    <Compile Include="Objects\Map.cs" />
-    <Compile Include="Objects\Message.cs" />
-    <Compile Include="Objects\Monster.cs" />
-    <Compile Include="Objects\Npc.cs" />
-    <Compile Include="Objects\Portal.cs" />
-    <Compile Include="Objects\Script.cs" />
-    <Compile Include="Objects\TimeSpaceInfo.cs" />
-    <Compile Include="Objects\Wave.cs" />
-    <Compile Include="Packets\AtPacket.cs" />
-    <Compile Include="Packets\EffPacket.cs" />
-    <Compile Include="Packets\EvntPacket.cs" />
-    <Compile Include="Packets\GpPacket.cs" />
-    <Compile Include="Packets\InPacket.cs" />
-    <Compile Include="Packets\MinfoPacket.cs" />
-    <Compile Include="Packets\MsgPacket.cs" />
-    <Compile Include="Packets\NpcReqPacket.cs" />
-    <Compile Include="Packets\OutPacket.cs" />
-    <Compile Include="Packets\PreqPacket.cs" />
-    <Compile Include="Packets\RbrPacket.cs" />
-    <Compile Include="Packets\RsfmPacket.cs" />
-    <Compile Include="Packets\RsfnPacket.cs" />
-    <Compile Include="Packets\SuPacket.cs" />
-    <Compile Include="Packets\WalkPacket.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlFilePreviewWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="XmlFilePreviewWindow.Designer.cs">
       <DependentUpon>XmlFilePreviewWindow.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="XmlFilePreviewWindow.resx">
+      <DependentUpon>XmlFilePreviewWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -119,9 +65,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="XmlFilePreviewWindow.resx">
-      <DependentUpon>XmlFilePreviewWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -135,6 +78,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
