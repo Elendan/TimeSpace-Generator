@@ -28,6 +28,7 @@ namespace TimeSpaceGenerator
         {
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
+            ScriptManager.Instance.ScriptData = string.Empty;
             ScriptManager.Instance.Script.Info.Label = LabelTextBox.Text;
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
