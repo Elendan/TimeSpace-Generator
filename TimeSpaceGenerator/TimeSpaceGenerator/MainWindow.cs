@@ -11,6 +11,7 @@ using TimeSpaceGenerator.Errors;
 using TimeSpaceGenerator.Handlers;
 using TimeSpaceGenerator.Helpers;
 using TimeSpaceGenerator.Managers;
+using TimeSpaceGenerator.Objects;
 
 namespace TimeSpaceGenerator
 {
@@ -38,8 +39,9 @@ namespace TimeSpaceGenerator
         {
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
+            ScriptManager.Instance.IsGenerated = false;
+            ScriptManager.Instance.Script = new Script { Info = { Label = LabelTextBox.Text } };
             ScriptManager.Instance.ScriptData = string.Empty;
-            ScriptManager.Instance.Script.Info.Label = LabelTextBox.Text;
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
                 string cpy = line;
@@ -64,7 +66,7 @@ namespace TimeSpaceGenerator
                 ScriptManager.Instance.IsGenerated = true;
             }
 
-           XmlFile += ScriptManager.Instance.ScriptData;
+           XmlFile = ScriptManager.Instance.ScriptData;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
