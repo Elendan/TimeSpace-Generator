@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using TimeSpaceGenerator.Enums;
 
 namespace TimeSpaceGenerator.Errors
@@ -25,6 +27,23 @@ namespace TimeSpaceGenerator.Errors
         public ErrorType Type { get; set; }
 
         public List<KeyValuePair<ErrorType, string>> Error { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public void AddError(ErrorType type, string error)
+        {
+            Error.Add(new KeyValuePair<ErrorType, string>(type, error));
+        }
+
+        public void Dump(TextBox errorTextBox)
+        {
+            foreach (KeyValuePair<ErrorType, string> error in Error)
+            {
+                errorTextBox.Text += $"{error.Value}" + Environment.NewLine;
+            }
+        }
 
         #endregion
 

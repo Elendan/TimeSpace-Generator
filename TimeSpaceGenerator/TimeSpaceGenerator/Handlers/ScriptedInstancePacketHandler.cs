@@ -16,7 +16,25 @@ namespace TimeSpaceGenerator.Handlers
     {
         public void RbrPacket(RbrPacket packet)
         {
-            // This will be re implemented later
+            //Draw gifts
+            ScriptManager.Instance.Script.Info.DrawGift.Add(new Item(packet.DrawGift1, packet.DrawGiftAmount1));
+            ScriptManager.Instance.Script.Info.DrawGift.Add(new Item(packet.DrawGift2, packet.DrawGiftAmount2));
+            ScriptManager.Instance.Script.Info.DrawGift.Add(new Item(packet.DrawGift3, packet.DrawGiftAmount3));
+            ScriptManager.Instance.Script.Info.DrawGift.Add(new Item(packet.DrawGift4, packet.DrawGiftAmount4));
+            ScriptManager.Instance.Script.Info.DrawGift.Add(new Item(packet.DrawGift5, packet.DrawGiftAmount5));
+
+            //Special items
+            ScriptManager.Instance.Script.Info.Special.Add(new Item(packet.SpecialItem1, packet.SpecialItemAmount1));
+            ScriptManager.Instance.Script.Info.Special.Add(new Item(packet.SpecialItem2, packet.SpecialItemAmount2));
+
+            //Bonus items
+            ScriptManager.Instance.Script.Info.Bonus.Add(new Item(packet.BonusItem1, packet.BonusItemAmount1));
+            ScriptManager.Instance.Script.Info.Bonus.Add(new Item(packet.BonusItem2, packet.BonusItemAmount2));
+            ScriptManager.Instance.Script.Info.Bonus.Add(new Item(packet.BonusItem3, packet.BonusItemAmount3));
+
+            //Title
+            ScriptManager.Instance.Script.Info.Title = packet.TitleAndLabel;
+            ScriptManager.Instance.FileName = $"Ts - {packet.LevelMinimum}.xml";
         }
 
         public void WalkPacket(WalkPacket packet)

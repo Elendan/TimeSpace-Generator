@@ -28,7 +28,6 @@ namespace TimeSpaceGenerator
         {
             ErrorTextBox.Text = string.Empty;
             ErrorManager.Instance.Error.Clear();
-            ScriptManager.Instance.RbrPacketManager(RbrPacketTextBox.Text, XmlFileNameTextBox);
             ScriptManager.Instance.Script.Info.Label = LabelTextBox.Text;
             foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
             {
@@ -42,11 +41,10 @@ namespace TimeSpaceGenerator
                 cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
                 PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
             }
-            
-            foreach (KeyValuePair<ErrorType, string> item in ErrorManager.Instance.Error)
-            {
-                ErrorTextBox.Text += $"{item.Key.ToString()}: {item.Value}" + Environment.NewLine;
-            }
+
+            XmlFileNameTextBox.Text = ScriptManager.Instance.FileName;
+
+            ErrorManager.Instance.Dump(ErrorTextBox);
 
             if (!ScriptManager.Instance.IsGenerated)
             {

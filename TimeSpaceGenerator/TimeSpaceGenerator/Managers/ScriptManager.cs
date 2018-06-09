@@ -81,63 +81,11 @@ namespace TimeSpaceGenerator.Managers
 
         public string ScriptData { get; set; }
 
+        public string FileName { get; set; }
+
         #endregion
 
         #region Methods
-
-        //Todo: Review this shit later
-        public string RbrPacketManager(string rbrPacket, TextBox name)
-        {
-            using (var stringreader = new StringReader(rbrPacket))
-            {
-                string str;
-                while ((str = stringreader.ReadLine()) != null)
-                {
-                    if (Num1 == (byte)1)
-                    {
-                      //  Script.Info.Label = str;
-                    }
-                    else
-                    {
-                        ++Num1;
-                        string[] strArray1 = str.Split(' ');
-                        if (strArray1.Length > 3 && strArray1[2] == "rbr")
-                        {
-                            string[] strArray2 = strArray1[6].Split('.');
-                            Script.Info.LevelMinimum = byte.Parse(strArray2[0]);
-                            Script.Info.LevelMax = byte.Parse(strArray2[1]);
-                            Script.Info.SumOfRequired = short.Parse(strArray1[7]);
-                            for (int index = 0; index < 5; ++index)
-                            {
-                                string[] strArray3 = strArray1[8 + index].Split('.');
-                                Script.Info.DrawGift.Add(new Item(short.Parse(strArray3[0]), short.Parse(strArray3[1])));
-                            }
-                            for (int index = 0; index < 2; ++index)
-                            {
-                                string[] strArray3 = strArray1[13 + index].Split('.');
-                                Script.Info.Special.Add(new Item(short.Parse(strArray3[0]), short.Parse(strArray3[1])));
-                            }
-                            for (int index = 0; index < 3; ++index)
-                            {
-                                string[] strArray3 = strArray1[15 + index].Split('.');
-                                Script.Info.Bonus.Add(new Item(short.Parse(strArray3[0]), short.Parse(strArray3[1])));
-                            }
-                            Script.Info.Title = strArray1[21];
-                            for (int index = 22; index < (strArray1).Count(); ++index)
-                            {
-                                TimeSpaceInfo info = Script.Info;
-                                info.Title = info.Title + " " + strArray1[index];
-                            }
-                        }
-                        name.Text = string.Format("TS - {0}.xml", Script.Info.LevelMinimum);
-                    }
-                }
-            }
-
-            //TODO: Generate the script
-            return string.Empty;
-        }
-
 
         public void AddEvent(object target, string eventName, Event evt)
         {

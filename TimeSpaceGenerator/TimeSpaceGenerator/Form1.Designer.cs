@@ -39,8 +39,6 @@ namespace TimeSpaceGenerator
             this.XmlOutput = new System.Windows.Forms.Label();
             this.ErrorTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.RbrPacketTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.ExitButton = new System.Windows.Forms.Button();
             this.XmlFileNameTextBox = new System.Windows.Forms.TextBox();
             this.GenerateXmlFileButton = new System.Windows.Forms.Button();
@@ -60,7 +58,7 @@ namespace TimeSpaceGenerator
             // 
             // PacketTextBox
             // 
-            this.PacketTextBox.Location = new System.Drawing.Point(12, 191);
+            this.PacketTextBox.Location = new System.Drawing.Point(8, 74);
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
             this.PacketTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -69,7 +67,7 @@ namespace TimeSpaceGenerator
             // 
             // GenerateXmlButton
             // 
-            this.GenerateXmlButton.Location = new System.Drawing.Point(12, 393);
+            this.GenerateXmlButton.Location = new System.Drawing.Point(8, 287);
             this.GenerateXmlButton.Name = "GenerateXmlButton";
             this.GenerateXmlButton.Size = new System.Drawing.Size(155, 59);
             this.GenerateXmlButton.TabIndex = 2;
@@ -80,7 +78,7 @@ namespace TimeSpaceGenerator
             // PacketsLabel
             // 
             this.PacketsLabel.AutoSize = true;
-            this.PacketsLabel.Location = new System.Drawing.Point(9, 175);
+            this.PacketsLabel.Location = new System.Drawing.Point(6, 58);
             this.PacketsLabel.Name = "PacketsLabel";
             this.PacketsLabel.Size = new System.Drawing.Size(46, 13);
             this.PacketsLabel.TabIndex = 3;
@@ -98,7 +96,7 @@ namespace TimeSpaceGenerator
             // 
             // ErrorTextBox
             // 
-            this.ErrorTextBox.Location = new System.Drawing.Point(12, 471);
+            this.ErrorTextBox.Location = new System.Drawing.Point(8, 442);
             this.ErrorTextBox.Multiline = true;
             this.ErrorTextBox.Name = "ErrorTextBox";
             this.ErrorTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -108,27 +106,11 @@ namespace TimeSpaceGenerator
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 455);
+            this.label1.Location = new System.Drawing.Point(13, 426);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Error Log";
-            // 
-            // RbrPacketTextBox
-            // 
-            this.RbrPacketTextBox.Location = new System.Drawing.Point(16, 25);
-            this.RbrPacketTextBox.Name = "RbrPacketTextBox";
-            this.RbrPacketTextBox.Size = new System.Drawing.Size(395, 20);
-            this.RbrPacketTextBox.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "rbr packet";
             // 
             // ExitButton
             // 
@@ -164,7 +146,7 @@ namespace TimeSpaceGenerator
             // 
             // LabelTextBox
             // 
-            this.LabelTextBox.Location = new System.Drawing.Point(13, 98);
+            this.LabelTextBox.Location = new System.Drawing.Point(9, 25);
             this.LabelTextBox.Name = "LabelTextBox";
             this.LabelTextBox.Size = new System.Drawing.Size(395, 20);
             this.LabelTextBox.TabIndex = 11;
@@ -172,7 +154,7 @@ namespace TimeSpaceGenerator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 82);
+            this.label3.Location = new System.Drawing.Point(13, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 12;
@@ -187,8 +169,6 @@ namespace TimeSpaceGenerator
             this.Controls.Add(this.LabelTextBox);
             this.Controls.Add(this.GenerateXmlFileButton);
             this.Controls.Add(this.XmlFileNameTextBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.RbrPacketTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ErrorTextBox);
             this.Controls.Add(this.XmlOutput);
@@ -214,8 +194,6 @@ namespace TimeSpaceGenerator
         private System.Windows.Forms.Label XmlOutput;
         private System.Windows.Forms.TextBox ErrorTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox RbrPacketTextBox;
-        private System.Windows.Forms.Label label2;
         private Button ExitButton;
         private TextBox XmlFileNameTextBox;
         private Button GenerateXmlFileButton;
