@@ -10,6 +10,7 @@
 
 - Elendan
 - PonyWarrior
+- Zanou
 
 # How to use 
 - Clone, compile, run.
