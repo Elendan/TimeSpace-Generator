@@ -49,17 +49,17 @@ namespace TimeSpaceGenerator.Objects
 
                     string concat =
                         $"<SummonMonster VNum=\"{MonsterToSummon.Vnum}\" PositionX=\"{MonsterToSummon.PosX}\" PositionY=\"{MonsterToSummon.PosY}\" {(MonsterToSummon.IsTarget ? "IsTarget=\"True\"" : "")} {(MonsterToSummon.IsBonus ? "IsBonus=\"True\"" : "")}>\r\n" +
-                        $"{ScriptHelper.Instance.Space[space + 1]}<OnDeath>\r\n";
+                        $"<OnDeath>\r\n";
                     foreach (Event evt in MonsterToSummon.OnDeathEvents)
                     {
-                        concat += $"{ScriptHelper.Instance.Space[space + 2]}{evt.SetEvent((byte)(space + 2U))}\r\n";
+                        concat += $"{evt.SetEvent((byte)(space + 2U))}\r\n";
                     }
 
                     if (MonsterToSummon.OnDeathEvents.Any(s => s.Type == EventType.ChangePortalType))
                     {
-                        concat += $"{ScriptHelper.Instance.Space[space + 2]}<RefreshMapItems/>\r\n";
+                        concat += $"<RefreshMapItems/>\r\n";
                     }
-                    return concat + $"{ScriptHelper.Instance.Space[space + 1]}</OnDeath>\r\n" + $"{ScriptHelper.Instance.Space[space]}</SummonMonster>";
+                    return concat + $"</OnDeath>\r\n" + $"</SummonMonster>";
                 case EventType.ClearMonster:
                     return "<ClearMapMonsters/>";
                 case EventType.NpcDialog:
@@ -69,7 +69,7 @@ namespace TimeSpaceGenerator.Objects
                 case EventType.AddClockTime:
                     return $"<AddClockTime Value=\"{Data[0]}\"/>";
                 case EventType.MapClock:
-                    return $"<GenerateMapClock Value=\"{Data[0]}\"/>\r\n" + $"<{ScriptHelper.Instance.Space[space]}StartMapClock/>";
+                    return $"<GenerateMapClock Value=\"{Data[0]}\"/>\r\n" + $"<StartMapClock/>";
                 case EventType.SendPacket:
                     return $"<SendPacket Value=\"{Data[0]}\"/>";
                 case EventType.RemoveMapClock:

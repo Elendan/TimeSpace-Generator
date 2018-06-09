@@ -21,18 +21,5 @@ namespace TimeSpaceGenerator.Helpers
              1055,
              1057
         };
-
-        public string[] Space { get; set; }
-
-        public ScriptHelper()
-        {
-            Space = new string[20];
-            Space[0] = "   ";
-            for (int index = 1; index < Space.Length; ++index)
-            {
-                Space[index] = Space[index - 1] + Space[0];
-            }
-        }
-
     }
 }
