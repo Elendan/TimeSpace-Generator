@@ -119,169 +119,180 @@ namespace TimeSpaceGenerator.Managers
             }
         }
 
-
         //TODO: Split and cleanup this shit
         public string GenerateScript()
         {
             string[] space = ScriptHelper.Instance.Space;
-            string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + string.Format("{0}<Globals>\r\n", space[0]) + string.Format("{0}<Label Value=\"{1}\"/>\r\n", space[1], Script.Info.Label) + string.Format("{0}<Title Value=\"{1}\"/>\r\n", space[1], Script.Info.Title) + string.Format("{0}<LevelMinimum Value=\"{1}\"/>\r\n", space[1], Script.Info.LevelMinimum) + string.Format("{0}<LevelMaximum Value=\"{1}\"/>\r\n", space[1], (Script.Info.LevelMax == 0 ? 99 : Script.Info.LevelMax)) + string.Format("{0}<Lives Value=\"{1}\"/>\r\n", space[1], Script.Info.Lives) + string.Format("{0}<RequieredItems>\r\n", space[1]) + string.Format("{0}<Item VNum=\"1012\" Amount=\"{1}\" />\r\n", space[2], (object)Script.Info.SumOfRequired) + string.Format("{0}</RequieredItems>\r\n", space[1]) + string.Format("{0}<DrawItems>\r\n", space[1]);
+            string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + $"{space[0]}<Globals>\r\n" + $"{space[1]}<Label Value=\"{Script.Info.Label}\"/>\r\n" +
+                $"{space[1]}<Title Value=\"{Script.Info.Title}\"/>\r\n" + $"{space[1]}<LevelMinimum Value=\"{Script.Info.LevelMinimum}\"/>\r\n" +
+                $"{space[1]}<LevelMaximum Value=\"{(Script.Info.LevelMax == 0 ? 99 : Script.Info.LevelMax)}\"/>\r\n" + $"{space[1]}<Lives Value=\"{Script.Info.Lives}\"/>\r\n" +
+                $"{space[1]}<RequieredItems>\r\n" + $"{space[2]}<Item VNum=\"1012\" Amount=\"{Script.Info.SumOfRequired}\" />\r\n" + $"{space[1]}</RequieredItems>\r\n" + $"{space[1]}<DrawItems>\r\n";
             foreach (Item obj in Script.Info.DrawGift)
             {
                 if (obj.Vnum != -1)
                 {
-                    str1 += string.Format("{0}<Item VNum=\"{1}\" Amount=\"{2}\"/>\r\n", space[2], obj.Vnum, obj.Amount);
+                    str1 += $"{space[2]}<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
                 }
             }
-            string str2 = str1 + string.Format("{0}</DrawItems>\r\n", space[1]) + string.Format("{0}<SpecialItems>\r\n", space[1]);
+            string str2 = str1 + $"{space[1]}</DrawItems>\r\n" + $"{space[1]}<SpecialItems>\r\n";
             foreach (Item obj in Script.Info.Special)
             {
                 if (obj.Vnum != -1)
                 {
-                    str2 += string.Format("{0}<Item VNum=\"{1}\" Amount=\"{2}\"/>\r\n", space[2], obj.Vnum, obj.Amount);
+                    str2 += $"{space[2]}<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
                 }
             }
-            string str3 = str2 + string.Format("{0}</SpecialItems>\r\n", space[1]) + string.Format("{0}<GiftItems>\r\n", space[1]);
+            string str3 = str2 + $"{space[1]}</SpecialItems>\r\n" + $"{space[1]}<GiftItems>\r\n";
             foreach (Item bonu in Script.Info.Bonus)
             {
                 if (bonu.Vnum != -1)
                 {
-                    str3 += string.Format("{0}<Item VNum=\"{1}\" Amount=\"{2}\"/>\r\n", space[2], bonu.Vnum, bonu.Amount);
+                    str3 += $"{space[2]}<Item VNum=\"{bonu.Vnum}\" Amount=\"{bonu.Amount}\"/>\r\n";
                 }
             }
-            string str4 = str3 + string.Format("{0}</GiftItems>\r\n", space[1]) + string.Format("{0}</Globals>\r\n", space[0]) + string.Format("{0}<InstanceEvents>\r\n", space[0]);
+            string str4 = str3 + $"{space[1]}</GiftItems>\r\n" + $"{space[0]}</Globals>\r\n" + $"{space[0]}<InstanceEvents>\r\n";
             foreach (Map map in Script.Maps.OrderBy(s => s.Id))
             {
-                str4 += string.Format("{0}<CreateMap Map=\"{1}\" VNum=\"{2}\" IndexX=\"{3}\" IndexY=\"{4}\">\r\n", space[1], map.Id, map.Vnum, map.IndexX, map.IndexY);
+                str4 += $"{space[1]}<CreateMap Map=\"{map.Id}\" VNum=\"{map.Vnum}\" IndexX=\"{map.IndexX}\" IndexY=\"{map.IndexY}\">\r\n";
                 if (map.OnCharacterDiscoveringMap.Any())
                 {
-                    str4 += string.Format("{0}<OnCharacterDiscoveringMap>\r\n", space[2]);
+                    str4 += $"{space[2]}<OnCharacterDiscoveringMap>\r\n";
                     foreach (Event characterDiscovering in map.OnCharacterDiscoveringMap)
                     {
-                        str4 += string.Format("{0}{1}\r\n", space[3], characterDiscovering.SetEvent(3));
+                        str4 += $"{space[3]}{characterDiscovering.SetEvent(3)}\r\n";
                     }
                     List<Event> characterDiscoveringMap = map.OnCharacterDiscoveringMap;
                     if (characterDiscoveringMap.Any(s => s.Type == EventType.ChangePortalType))
                     {
-                        str4 += string.Format("{0}<RefreshMapItems/>\r\n", space[3]);
+                        str4 += $"{space[3]}<RefreshMapItems/>\r\n";
                     }
-                    str4 += string.Format("{0}</OnCharacterDiscoveringMap>\r\n", space[2]);
+                    str4 += $"{space[2]}</OnCharacterDiscoveringMap>\r\n";
                 }
 
                 if (map.OnMapClear.Any())
                 {
-                    str4 += string.Format("{0}<OnMapClean>\r\n", space[2]);
+                    str4 += $"{space[2]}<OnMapClean>\r\n";
                     foreach (Event evt in map.OnMapClear)
-                        str4 += string.Format("{0}{1}\r\n", space[3], evt.SetEvent(3));
+                        str4 += $"{space[3]}{evt.SetEvent(3)}\r\n";
                     List<Event> onMapClear = map.OnMapClear;
                     if (onMapClear.Any(s => s.Type == EventType.ChangePortalType))
                     {
-                        str4 += string.Format("{0}<RefreshMapItems/>\r\n", space[3]);
+                        str4 += $"{space[3]}<RefreshMapItems/>\r\n";
                     }
-                    str4 += string.Format("{0}</OnMapClean>\r\n", space[2]);
+                    str4 += $"{space[2]}</OnMapClean>\r\n";
                 }
 
                 if (map.Clock != null)
                 {
-                    str4 += string.Format("{0}<GenerateClock Value=\"{1}\"/>\r\n", space[2], map.Clock.Time);
-                    str4 += string.Format("{0}<StartClock/>\r\n", space[2]);
+                    str4 += $"{space[2]}<GenerateClock Value=\"{map.Clock.Time}\"/>\r\n";
+                    str4 += $"{space[2]}<StartClock/>\r\n";
                 }
 
                 if (map.MapClock != null)
                 {
-                    str4 += string.Format("{0}<GenerateMapClock Value=\"{1}\"/>\r\n", space[2], map.MapClock.Time);
+                    str4 += $"{space[2]}<GenerateMapClock Value=\"{map.MapClock.Time}\"/>\r\n";
                 }
 
                 if (map.MapPortals.Any<Portal>())
                 {
-                    str4 += string.Format("\r\n{0}<!-- Portals -->\r\n", space[2]);
+                    str4 += $"\r\n{space[2]}<!-- Portals -->\r\n";
                     foreach (Portal portal in map.MapPortals)
                     {
                         if (portal.OnTraversalEvent.Any<Event>())
                         {
-                            str4 += string.Format("{0}<SpawnPortal IdOnMap=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\" Type=\"{4}\" ToMap=\"{5}\" ToX =\"{6}\" ToY =\"{7}\">\r\n", (object)space[2], (object)portal.PortalId, (object)portal.PosX, (object)portal.PosY, (object)portal.PortalType, (object)portal.DestMapId, (object)portal.DestX, (object)portal.DestY);
-                            str4 += string.Format("{0}<OnTraversal>\r\n", space[3]);
+                            str4 +=
+                                $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n";
+                            str4 += $"{space[3]}<OnTraversal>\r\n";
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
-                                str4 += string.Format("{0}{1}\r\n", space[4], evt.SetEvent(4));
+                                str4 += $"{space[4]}{evt.SetEvent(4)}\r\n";
                             }
                             List<Event> onTraversalEvent = portal.OnTraversalEvent;
 
                             if (onTraversalEvent.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += string.Format("{0}<RefreshMapItems/>\r\n", space[3]);
+                                str4 += $"{space[3]}<RefreshMapItems/>\r\n";
                             }
-                            str4 += string.Format("{0}</OnTraversal>\r\n", space[3]);
-                            str4 += string.Format("{0}</SpawnPortal>\r\n", space[2]);
+                            str4 += $"{space[3]}</OnTraversal>\r\n";
+                            str4 += $"{space[2]}</SpawnPortal>\r\n";
                         }
                         else
                         {
-                            str4 += string.Format("{0}<SpawnPortal IdOnMap=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\" Type=\"{4}\" ToMap=\"{5}\" ToX =\"{6}\" ToY =\"{7}\"/>\r\n", (object)space[2], (object)portal.PortalId, (object)portal.PosX, (object)portal.PosY, (object)portal.PortalType, (object)portal.DestMapId, (object)portal.DestX, (object)portal.DestY);
+                            str4 +=
+                                $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
                         }
                     }
                 }
                 if (map.MapNpcs.Any())
                 {
-                    str4 += string.Format("\r\n{0}<!-- Npcs -->\r\n", (object)space[2]);
+                    str4 += $"\r\n{space[2]}<!-- Npcs -->\r\n";
                     foreach (Npc npc in map.MapNpcs)
                     {
-                        str4 += string.Format("{0}<SummonNpc VNum=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\" {4} {5}/>\r\n", (object)space[2], (object)npc.Vnum, (object)npc.PosX, (object)npc.PosY, npc.IsMate ? (object)"IsMate=\"True\"" : (object)"", npc.IsProtected ? (object)"IsProtected=\"True\"" : (object)"");
+                        str4 +=
+                            $"{space[2]}<SummonNpc VNum=\"{npc.Vnum}\" PositionX=\"{npc.PosX}\" PositionY=\"{npc.PosY}\" {(npc.IsMate ? "IsMate=\"True\"" : "")} {(npc.IsProtected ? "IsProtected=\"True\"" : "")}/>\r\n";
                     }
                 }
                 if (map.MapButtons.Any())
                 {
                     int num = 0;
-                    str4 += string.Format("\r\n{0}<!-- Buttons -->\r\n", (object)space[2]);
+                    str4 += $"\r\n{space[2]}<!-- Buttons -->\r\n";
                     foreach (Button button in map.MapButtons)
                     {
-                        if (button.OnFirstEnable.Any<Event>())
+                        if (button.OnFirstEnable.Any())
                         {
-                            str4 += string.Format("{0}<SpawnButton PositionX=\"{1}\" PositionY=\"{2}\" VNumDisabled=\"{3}\" VNumEnabled=\"{4}\" Id=\"{5}\">\r\n", (object)space[2], (object)button.PosX, (object)button.PosY, (object)button.DisableVNum, (object)button.EnableVNum, (object)num++);
-                            str4 += string.Format("{0}<OnFirstEnable>\r\n", (object)space[3]);
-                            foreach (Event @event in button.OnFirstEnable)
-                                str4 += string.Format("{0}{1}\r\n", (object)space[4], (object)@event.SetEvent((byte)4));
+                            str4 +=
+                                $"{space[2]}<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\">\r\n";
+                            str4 += $"{space[3]}<OnFirstEnable>\r\n";
+                            foreach (Event evt in button.OnFirstEnable)
+                            {
+                                str4 += $"{space[4]}{evt.SetEvent(4)}\r\n";
+                            }
                             List<Event> onFirstEnable = button.OnFirstEnable;
                             if (onFirstEnable.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += string.Format("{0}<RefreshMapItems/>\r\n", (object)space[3]);
+                                str4 += $"{space[3]}<RefreshMapItems/>\r\n";
                             }
-                            str4 += string.Format("{0}<RefreshMapItems/>\r\n", (object)space[4]);
-                            str4 += string.Format("{0}</OnFirstEnable>\r\n", (object)space[3]);
-                            str4 += string.Format("{0}</SpawnButton>\r\n", (object)space[2]);
+                            str4 += $"{space[4]}<RefreshMapItems/>\r\n";
+                            str4 += $"{space[3]}</OnFirstEnable>\r\n";
+                            str4 += $"{space[2]}</SpawnButton>\r\n";
                         }
                         else
-                            str4 += string.Format("{0}<SpawnButton PositionX=\"{1}\" PositionY=\"{2}\" VNumDisabled=\"{3}\" VNumEnabled=\"{4}\" Id=\"{5}\"/>\r\n", (object)space[2], (object)button.PosX, (object)button.PosY, (object)button.DisableVNum, (object)button.EnableVNum, (object)num++);
+                            str4 +=
+                                $"{space[2]}<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\"/>\r\n";
                     }
                 }
                 if (map.MapMonsters.Any<Monster>())
                 {
-                    str4 += string.Format("\r\n{0}<!-- Monsters -->\r\n", (object)space[2]);
+                    str4 += $"\r\n{space[2]}<!-- Monsters -->\r\n";
                     foreach (Monster monster in map.MapMonsters)
                     {
                         if (!monster.OnDeathEvents.Any<Event>())
                         {
-                            str4 += string.Format("{0}<SummonMonster VNum=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\" {4} {5}/>\r\n", (object)space[2], (object)monster.Vnum, (object)monster.PosX, (object)monster.PosY, monster.IsTarget ? (object)"IsTarget=\"True\"" : (object)"", monster.IsBonus ? (object)"IsBonus=\"True\"" : (object)"");
+                            str4 +=
+                                $"{space[2]}<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\" {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}/>\r\n";
                         }
                         else
                         {
-                            str4 += string.Format("{0}<SummonMonster VNum=\"{1}\" PositionX=\"{2}\" PositionY=\"{3}\"  {4} {5}>\r\n", (object)space[2], (object)monster.Vnum, (object)monster.PosX, (object)monster.PosY, monster.IsTarget ? (object)"IsTarget=\"True\"" : (object)"", monster.IsBonus ? (object)"IsBonus=\"True\"" : (object)"");
-                            str4 += string.Format("{0}<OnDeath>\r\n", (object)space[3]);
+                            str4 +=
+                                $"{space[2]}<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\"  {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}>\r\n";
+                            str4 += $"{space[3]}<OnDeath>\r\n";
                             foreach (Event deathEvent in monster.OnDeathEvents)
                             {
-                                str4 += string.Format("{0}{1}\r\n", (object)space[4], (object)deathEvent.SetEvent((byte)4));
+                                str4 += $"{space[4]}{deathEvent.SetEvent((byte)4)}\r\n";
                             }
                             List<Event> deathEvents = monster.OnDeathEvents;
-                            if (deathEvents.Any<Event>(s => s.Type == EventType.ChangePortalType))
+                            if (deathEvents.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += string.Format("{0}<RefreshMapItems/>\r\n", (object)space[4]);
+                                str4 += $"{space[4]}<RefreshMapItems/>\r\n";
                             }
-                            str4 += string.Format("{0}</OnDeath>\r\n", (object)space[3]);
-                            str4 += string.Format("{0}</SummonMonster>\r\n", (object)space[2]);
+                            str4 += $"{space[3]}</OnDeath>\r\n";
+                            str4 += $"{space[2]}</SummonMonster>\r\n";
                         }
                     }
                 }
-                str4 += string.Format("{0}</CreateMap>\r\n", (object)space[1]);
+                str4 += $"{space[1]}</CreateMap>\r\n";
             }
-            return str4 + string.Format("{0}</InstanceEvents>\r\n", (object)space[0]) + "</Definition>";
+            return str4 + $"{space[0]}</InstanceEvents>\r\n" + "</Definition>";
         }
         #endregion
     }

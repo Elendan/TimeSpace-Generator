@@ -9,10 +9,7 @@ namespace TimeSpaceGenerator.Errors
     {
         #region instantiation
 
-        public ErrorManager()
-        {
-            Error = new List<KeyValuePair<ErrorType, string>>();
-        }
+        public ErrorManager() => Error = new List<KeyValuePair<ErrorType, string>>();
 
         #endregion
 

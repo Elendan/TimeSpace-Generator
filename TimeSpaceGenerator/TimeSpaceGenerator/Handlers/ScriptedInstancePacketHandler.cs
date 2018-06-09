@@ -79,7 +79,6 @@ namespace TimeSpaceGenerator.Handlers
 
         public void RsfmPacket(RsfmPacket packet)
         {
-            //TODO: Fix this later
             /*
             ScriptManager.Instance.Data[0] = "rsfm 5 2 0 0";
             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendPacket, ScriptManager.Instance.Data));
@@ -245,7 +244,6 @@ namespace TimeSpaceGenerator.Handlers
                         {
                             ScriptManager.Instance.Flag2 = true;
                             ScriptManager.Instance.Data[0] = packet.BaseSecondsRemaining - ScriptManager.Instance.Num2;
-                            //...
                             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.AddClockTime, ScriptManager.Instance.Data));
                         }
 
@@ -288,7 +286,6 @@ namespace TimeSpaceGenerator.Handlers
 
         public void EffPacket(EffPacket packet)
         {
-            //Todo: Not quite sure for this one
             int num4 = packet.Id;
 
             switch (packet.EffectType)

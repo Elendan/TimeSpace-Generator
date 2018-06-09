@@ -42,7 +42,6 @@ namespace TimeSpaceGenerator
                 cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
                 PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
             }
-
             XmlFileNameTextBox.Text = ScriptManager.Instance.FileName;
 
             ErrorManager.Instance.Dump(ErrorTextBox);
@@ -75,11 +74,11 @@ namespace TimeSpaceGenerator
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
             string path = string.Format("Scripts");
-            string str = string.Format("{0}\\{1}", (object)path, (object)XmlFileNameTextBox.Text);
+            string str = string.Format("{0}\\{1}", path, XmlFileNameTextBox.Text);
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            File.Create(string.Format("{0}", (object)str)).Close();
-            File.WriteAllText(string.Format("{0}", (object)str), ScriptManager.Instance.ScriptData, Encoding.Unicode);
+            File.Create(string.Format("{0}", str)).Close();
+            File.WriteAllText(string.Format("{0}", str), ScriptManager.Instance.ScriptData, Encoding.Unicode);
             MessageBox.Show("File sucessfuly created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
