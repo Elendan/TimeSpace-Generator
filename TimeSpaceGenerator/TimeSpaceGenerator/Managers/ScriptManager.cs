@@ -193,12 +193,12 @@ namespace TimeSpaceGenerator.Managers
                     str4 += $"{space[2]}<GenerateMapClock Value=\"{map.MapClock.Time}\"/>\r\n";
                 }
 
-                if (map.MapPortals.Any<Portal>())
+                if (map.MapPortals.Any())
                 {
                     str4 += $"\r\n{space[2]}<!-- Portals -->\r\n";
                     foreach (Portal portal in map.MapPortals)
                     {
-                        if (portal.OnTraversalEvent.Any<Event>())
+                        if (portal.OnTraversalEvent.Any())
                         {
                             str4 +=
                                 $"{space[2]}<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n";
@@ -261,12 +261,12 @@ namespace TimeSpaceGenerator.Managers
                                 $"{space[2]}<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\"/>\r\n";
                     }
                 }
-                if (map.MapMonsters.Any<Monster>())
+                if (map.MapMonsters.Any())
                 {
                     str4 += $"\r\n{space[2]}<!-- Monsters -->\r\n";
                     foreach (Monster monster in map.MapMonsters)
                     {
-                        if (!monster.OnDeathEvents.Any<Event>())
+                        if (!monster.OnDeathEvents.Any())
                         {
                             str4 +=
                                 $"{space[2]}<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\" {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}/>\r\n";
@@ -278,7 +278,7 @@ namespace TimeSpaceGenerator.Managers
                             str4 += $"{space[3]}<OnDeath>\r\n";
                             foreach (Event deathEvent in monster.OnDeathEvents)
                             {
-                                str4 += $"{space[4]}{deathEvent.SetEvent((byte)4)}\r\n";
+                                str4 += $"{space[4]}{deathEvent.SetEvent(4)}\r\n";
                             }
                             List<Event> deathEvents = monster.OnDeathEvents;
                             if (deathEvents.Any(s => s.Type == EventType.ChangePortalType))

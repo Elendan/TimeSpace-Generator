@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using TimeSpaceGenerator.Core;
@@ -15,6 +16,13 @@ namespace TimeSpaceGenerator
 {
     public partial class MainWindow : Form
     {
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         public TriggerHandler PacketTriggerHandler { get; set; }
 
         public string XmlFile;
@@ -97,8 +105,14 @@ namespace TimeSpaceGenerator
 
         private void buttonXmlFilePreview_Click(object sender, EventArgs e)
         {
-            XmlFilePreview.XmlFilePreviewWindow x = new XmlFilePreview.XmlFilePreviewWindow(XmlFile);
+            var x = new XmlFilePreview.XmlFilePreviewWindow(XmlFile);
             x.ShowDialog();
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
     }
 }
