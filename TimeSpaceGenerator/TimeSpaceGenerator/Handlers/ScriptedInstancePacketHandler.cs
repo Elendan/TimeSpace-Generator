@@ -215,10 +215,18 @@ namespace TimeSpaceGenerator.Handlers
 
             Portal portal3 = ScriptManager.Instance.Map1.MapPortals.FirstOrDefault(s => s.PortalId == packet.PortalId);
 
+            if (packet.PortalType == 5)
+            {
+
+                ScriptManager.Instance.Data[0] = 0;
+                ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId, specialValue: true));
+            }
+
             if (portal3 != null && portal3.PortalType != packet.PortalType)
             {
                 ScriptManager.Instance.Data[0] = portal3.PortalId;
                 ScriptManager.Instance.Data[1] = packet.PortalType;
+                
                 ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.ChangePortalType, ScriptManager.Instance.Data, numericData: packet.PortalId));
             }
         }

@@ -8,13 +8,14 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Event
     {
-        public Event(EventType type, object[] data = null, Monster monster = null, int numericData = 0, string textData = null)
+        public Event(EventType type, object[] data = null, Monster monster = null, int numericData = 0, string textData = null, bool specialValue = false)
         {
             Type = type;
             Data = data;
             MonsterToSummon = monster;
             TextData = textData;
             NumericData = numericData;
+            SpecialValue = specialValue;
         }
 
         public EventType Type { get; set; }
@@ -26,6 +27,8 @@ namespace TimeSpaceGenerator.Objects
         public string TextData { get; set; }
 
         public Monster MonsterToSummon { get; set; }
+
+        public bool SpecialValue { get; set; }
 
         //Ik, this is ugly af
         public string SetEvent(byte space = 0)
@@ -59,7 +62,7 @@ namespace TimeSpaceGenerator.Objects
                 case EventType.NpcDialog:
                     return string.Format("<NpcDialog Value=\"{0}\"/>", NumericData);
                 case EventType.ChangePortalType:
-                    return string.Format("<ChangePortalType IdOnMap=\"{0}\" Type=\"{1}\"/>", NumericData, 2); //TODO: Fix this
+                    return string.Format("<ChangePortalType IdOnMap=\"{0}\" Type=\"{1}\"/>", NumericData, SpecialValue ? 4 : 2); //TODO: Fix this
                 case EventType.AddClockTime:
                     return string.Format("<AddClockTime Value=\"{0}\"/>", Data[0]);
                 case EventType.MapClock:
