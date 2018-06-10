@@ -102,8 +102,10 @@ namespace TimeSpaceGenerator.Handlers
 
                     return true;
                 })
-                : null;
+                : null;			 
+
             ScriptManager.Instance.Target = ScriptManager.Instance.Portal1;
+		    ScriptManager.Instance.LastPortal = ScriptManager.Instance.Portal1;
         }
 
         public void OutPacket(OutPacket packet)
@@ -212,6 +214,14 @@ namespace TimeSpaceGenerator.Handlers
                     portal2.DestY = ScriptManager.Instance.Portal1.PosY;
                     portal2.MapId = ScriptManager.Instance.Portal1.MapId;
                     ScriptManager.Instance.Portal1 = null;
+                }
+				// Idk if all Portal to return behind in maps is always 2 need to check
+				if (packet.PortalId == 2)
+                {                 
+                    portal2.DestMapId = ScriptManager.Instance.LastPortal.MapId;
+					portal2.DestX = ScriptManager.Instance.LastPortal.PosX;
+					portal2.DestY = ScriptManager.Instance.LastPortal.PosY;
+                    ScriptManager.Instance.Portal1 = null;		
                 }
 
                 return;
@@ -364,7 +374,7 @@ namespace TimeSpaceGenerator.Handlers
                     ScriptManager.Instance.Portal1.DestX = packet.PositionX;
                     ScriptManager.Instance.Portal1.DestY = packet.PositionY;
                     ScriptManager.Instance.Portal1.DestMapId = ScriptManager.Instance.Script.Maps.Count;
-                }
+                }			
             }
         }
     }
