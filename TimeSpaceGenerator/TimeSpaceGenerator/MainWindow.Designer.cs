@@ -65,6 +65,7 @@ namespace TimeSpaceGenerator
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
             this.PacketTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            PacketTextBox.MaxLength = 0;
             this.PacketTextBox.Size = new System.Drawing.Size(909, 337);
             this.PacketTextBox.TabIndex = 1;
             // 
@@ -171,7 +172,7 @@ namespace TimeSpaceGenerator
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(250, 24);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Space Time Generator";
+            this.label4.Text = "TimeSpace Generator";
             // 
             // buttonMinimize
             // 

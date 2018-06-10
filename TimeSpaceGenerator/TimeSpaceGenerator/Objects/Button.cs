@@ -4,7 +4,7 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Button
     {
-        public Button(short vnum, long buttonId, short posX, short posY)
+        public Button(long vnum, long buttonId, long posX, long posY)
         {
             OnFirstEnable = new List<Event>();
             ButtonId = buttonId;
@@ -27,13 +27,13 @@ namespace TimeSpaceGenerator.Objects
 
         public long ButtonId { get; set; }
 
-        public short PosX { get; set; }
+        public long PosX { get; set; }
 
-        public short PosY { get; set; }
+        public long PosY { get; set; }
 
-        public short EnableVNum { get; set; }
+        public long EnableVNum { get; set; }
 
-        public short DisableVNum { get; set; }
+        public long DisableVNum { get; set; }
 
         public List<Event> OnFirstEnable { get; set; }
     }

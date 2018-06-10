@@ -28,7 +28,7 @@ namespace TimeSpaceGenerator.Objects
         public bool SpecialValue { get; set; }
 
         //Ik, this is ugly af
-        public string SetEvent(byte space = 0)
+        public string SetEvent()
         {
             switch (Type)
             {
@@ -49,7 +49,7 @@ namespace TimeSpaceGenerator.Objects
                         $"<OnDeath>\r\n";
                     foreach (Event evt in MonsterToSummon.OnDeathEvents)
                     {
-                        concat += $"{evt.SetEvent((byte)(space + 2U))}\r\n";
+                        concat += $"{evt.SetEvent()}\r\n";
                     }
 
                     if (MonsterToSummon.OnDeathEvents.Any(s => s.Type == EventType.ChangePortalType))

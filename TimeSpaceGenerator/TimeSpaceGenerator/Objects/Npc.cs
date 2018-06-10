@@ -2,7 +2,7 @@
 {
     public class Npc
     {
-        public Npc(short vnum, long npcId, short posX, short posY)
+        public Npc(long vnum, long npcId, long posX, long posY)
         {
             Vnum = vnum;
             MapNpcId = npcId;
@@ -12,11 +12,11 @@
 
         public long MapNpcId { get; set; }
 
-        public short PosX { get; set; }
+        public long PosX { get; set; }
 
-        public short PosY { get; set; }
+        public long PosY { get; set; }
 
-        public short Vnum { get; set; }
+        public long Vnum { get; set; }
 
         public bool IsMate { get; set; }
 

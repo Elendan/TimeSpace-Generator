@@ -119,7 +119,7 @@ namespace TimeSpaceGenerator.Handlers
 
                     break;
                 case VisualType.MapObject:
-                    ScriptManager.Instance.Target = ScriptManager.Instance.Map1.MapButtons.FirstOrDefault(s => s.ButtonId == packet.EntityId);
+                    ScriptManager.Instance.Target = ScriptManager.Instance.Map1?.MapButtons.FirstOrDefault(s => s.ButtonId == packet.EntityId);
                     break;
             }
         }

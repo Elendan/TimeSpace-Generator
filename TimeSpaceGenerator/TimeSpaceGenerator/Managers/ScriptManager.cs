@@ -120,7 +120,6 @@ namespace TimeSpaceGenerator.Managers
         //TODO: Split and cleanup this shit
         public string GenerateScript()
         {
-            //string[] space = ScriptHelper.Instance.Space;
             string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + $"<Globals>\r\n" + $"<Label Value=\"{Script.Info.Label}\"/>\r\n" +
                 $"<Title Value=\"{Script.Info.Title}\"/>\r\n" + $"<LevelMinimum Value=\"{Script.Info.LevelMinimum}\"/>\r\n" +
                 $"<LevelMaximum Value=\"{(Script.Info.LevelMax == 0 ? 99 : Script.Info.LevelMax)}\"/>\r\n" + $"<Lives Value=\"{Script.Info.Lives}\"/>\r\n" +
@@ -160,7 +159,7 @@ namespace TimeSpaceGenerator.Managers
                     str4 += $"<OnCharacterDiscoveringMap>\r\n";
                     foreach (Event characterDiscovering in map.OnCharacterDiscoveringMap)
                     {
-                        str4 += $"{characterDiscovering.SetEvent(3)}\r\n";
+                        str4 += $"{characterDiscovering.SetEvent()}\r\n";
                     }
 
                     List<Event> characterDiscoveringMap = map.OnCharacterDiscoveringMap;
@@ -177,14 +176,10 @@ namespace TimeSpaceGenerator.Managers
                     str4 += $"<OnMapClean>\r\n";
                     foreach (Event evt in map.OnMapClear)
                     {
-                        str4 += $"{evt.SetEvent(3)}\r\n";
+                        str4 += $"{evt.SetEvent()}\r\n";
                     }
 
-                    List<Event> onMapClear = map.OnMapClear;
-                    if (onMapClear.Any(s => s.Type == EventType.ChangePortalType))
-                    {
-                        str4 += $"<RefreshMapItems/>\r\n";
-                    }
+                    str4 += $"<RefreshMapItems/>\r\n";
 
                     str4 += $"</OnMapClean>\r\n";
                 }
@@ -221,7 +216,7 @@ namespace TimeSpaceGenerator.Managers
                             str4 += $"<OnTraversal>\r\n";
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
-                                str4 += $"{evt.SetEvent(4)}\r\n";
+                                str4 += $"{evt.SetEvent()}\r\n";
                             }
 
                             List<Event> onTraversalEvent = portal.OnTraversalEvent;
@@ -242,7 +237,7 @@ namespace TimeSpaceGenerator.Managers
                         else
                         {
                             str4 +=
-                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
+                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{(portal.DestMapId == 0 ? 1 : portal.DestMapId)}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
                         }
                     }
                 }
@@ -270,7 +265,7 @@ namespace TimeSpaceGenerator.Managers
                             str4 += $"<OnFirstEnable>\r\n";
                             foreach (Event evt in button.OnFirstEnable)
                             {
-                                str4 += $"{evt.SetEvent(4)}\r\n";
+                                str4 += $"{evt.SetEvent()}\r\n";
                             }
 
                             List<Event> onFirstEnable = button.OnFirstEnable;
@@ -308,7 +303,7 @@ namespace TimeSpaceGenerator.Managers
                             str4 += $"<OnDeath>\r\n";
                             foreach (Event deathEvent in monster.OnDeathEvents)
                             {
-                                str4 += $"{deathEvent.SetEvent(4)}\r\n";
+                                str4 += $"{deathEvent.SetEvent()}\r\n";
                             }
 
                             List<Event> deathEvents = monster.OnDeathEvents;

@@ -4,7 +4,7 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Monster
     {
-        public Monster(short vnum, long mapMonsterId, short posX, short posY)
+        public Monster(long vnum, long mapMonsterId, long posX, long posY)
         {
             OnDeathEvents = new List<Event>();
 
@@ -16,11 +16,11 @@ namespace TimeSpaceGenerator.Objects
 
         public long MapMonsterId { get; set; }
 
-        public short PosX { get; set; }
+        public long PosX { get; set; }
 
-        public short PosY { get; set; }
+        public long PosY { get; set; }
 
-        public short Vnum { get; set; }
+        public long Vnum { get; set; }
 
         public bool IsTarget { get; set; }
 

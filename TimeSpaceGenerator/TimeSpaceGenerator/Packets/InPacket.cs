@@ -12,19 +12,19 @@ namespace TimeSpaceGenerator.Packets
         public VisualType EntityType { get; set; }
 
         [PacketIndex(1)]
-        public short NpcMonsterVnum { get; set; }
+        public long NpcMonsterVnum { get; set; }
 
         [PacketIndex(2)]
         public long MateTransportId { get; set; }
 
         [PacketIndex(3)]
-        public short PosX { get; set; }
+        public long PosX { get; set; }
 
         [PacketIndex(4)]
-        public short PosY { get; set; }
+        public long PosY { get; set; }
 
         [PacketIndex(5)]
-        public short Direction { get; set; }
+        public long Direction { get; set; }
 
         [PacketIndex(6)]
         public int Hp { get; set; }
@@ -36,7 +36,7 @@ namespace TimeSpaceGenerator.Packets
         public int Unknown { get; set; }
 
         [PacketIndex(9)]
-        public short Faction { get; set; }
+        public long Faction { get; set; }
 
         [PacketIndex(10)]
         public int Unknown2 { get; set; }
@@ -51,9 +51,9 @@ namespace TimeSpaceGenerator.Packets
         public int Unknown4 { get; set; }
 
         [PacketIndex(14)]
-        public short Morph { get; set; }
+        public long Morph { get; set; }
 
-        [PacketIndex(15)]
+        [PacketIndex(15, SerializeToEnd = true)]
         public string Name { get; set; }
 
         [PacketIndex(16)]
