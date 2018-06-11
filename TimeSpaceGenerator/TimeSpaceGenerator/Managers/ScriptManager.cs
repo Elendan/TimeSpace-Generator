@@ -41,8 +41,6 @@ namespace TimeSpaceGenerator.Managers
 
         public Portal Portal1 { get; set; }
 
-		public Portal LastPortal { get; set; }
-
         public Monster Monster1 { get; set; }
 
         public Clock Clock1 { get; set; }
@@ -239,7 +237,7 @@ namespace TimeSpaceGenerator.Managers
                         else
                         {
                             str4 +=
-                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{(portal.DestMapId == 0 ? LastPortal.DestMapId: portal.DestMapId)}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
+                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{(portal.DestMapId == 0 ? 1 : portal.DestMapId)}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
                         }
                     }
                 }
