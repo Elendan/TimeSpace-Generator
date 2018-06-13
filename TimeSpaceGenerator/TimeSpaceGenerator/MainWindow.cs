@@ -50,7 +50,7 @@ namespace TimeSpaceGenerator
                 foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
                 {
                     string cpy = line;
-                    if (!char.IsLetter(line[0]))
+                    if (!char.IsLetter(line[0]) || !char.IsDigit(line[0]))
                     {
                         //I know this is dirty as fuck
                         cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
