@@ -96,7 +96,7 @@ namespace TimeSpaceGenerator
 
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
-            string path = "Scripts";
+            const string path = "Scripts";
             string str = $"{path}\\{XmlFileNameTextBox.Text}";
             if (!Directory.Exists(path))
             {
@@ -105,26 +105,26 @@ namespace TimeSpaceGenerator
 
             File.Create($"{str}").Close();
             File.WriteAllText($"{str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
-            MessageBox.Show("File sucessfuly created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show(@"File sucessfuly created", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-        private void buttonMinimize_Click(object sender, EventArgs e)
+        private void ButtonMinimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void buttonXmlFilePreview_Click(object sender, EventArgs e)
+        private void ButtonXmlFilePreview_Click(object sender, EventArgs e)
         {
             var x = new XmlFilePreviewWindow(XmlFile);
             x.ShowDialog();
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void Panel1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);

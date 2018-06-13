@@ -162,7 +162,7 @@ namespace TimeSpaceGenerator
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(935, 79);
             this.panel1.TabIndex = 13;
-            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseDown);
             // 
             // label4
             // 
@@ -183,7 +183,7 @@ namespace TimeSpaceGenerator
             this.buttonMinimize.TabIndex = 1;
             this.buttonMinimize.Text = "Minimize";
             this.buttonMinimize.UseVisualStyleBackColor = true;
-            this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
+            this.buttonMinimize.Click += new System.EventHandler(this.ButtonMinimize_Click);
             // 
             // buttonClose
             // 
@@ -194,7 +194,7 @@ namespace TimeSpaceGenerator
             this.buttonClose.TabIndex = 0;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // panel2
             // 
@@ -218,7 +218,7 @@ namespace TimeSpaceGenerator
             this.buttonXmlFilePreview.TabIndex = 12;
             this.buttonXmlFilePreview.Text = "XML File Preview";
             this.buttonXmlFilePreview.UseVisualStyleBackColor = true;
-            this.buttonXmlFilePreview.Click += new System.EventHandler(this.buttonXmlFilePreview_Click);
+            this.buttonXmlFilePreview.Click += new System.EventHandler(this.ButtonXmlFilePreview_Click);
             // 
             // label2
             // 
