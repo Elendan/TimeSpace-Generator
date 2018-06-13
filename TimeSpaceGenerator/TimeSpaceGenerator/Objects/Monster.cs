@@ -6,7 +6,7 @@ namespace TimeSpaceGenerator.Objects
     {
         public Monster(long vnum, long mapMonsterId, long posX, long posY)
         {
-            OnDeathEvents = new List<Event>();
+            OnDeathEvents = new HashSet<Event>();
 
             MapMonsterId = mapMonsterId;
             PosX = posX;
@@ -28,6 +28,6 @@ namespace TimeSpaceGenerator.Objects
 
         public bool IsDead { get; set; }
 
-        public List<Event> OnDeathEvents { get; set; }
+        public HashSet<Event> OnDeathEvents { get; set; }
     }
 }

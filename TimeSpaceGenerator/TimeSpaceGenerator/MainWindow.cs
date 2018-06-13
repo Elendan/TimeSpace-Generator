@@ -19,16 +19,17 @@ namespace TimeSpaceGenerator
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
+        private readonly TriggerHandler _packetTriggerHandler;
+
         public string XmlFile;
 
         public MainWindow()
         {
             InitializeComponent();
-            PacketTriggerHandler = new TriggerHandler();
-            PacketTriggerHandler.GenerateHandlerReferences(typeof(ScriptedInstancePacketHandler));
+            _packetTriggerHandler = new TriggerHandler();
+            _packetTriggerHandler.GenerateHandlerReferences(typeof(ScriptedInstancePacketHandler));
         }
 
-        public TriggerHandler PacketTriggerHandler { get; set; }
 
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
@@ -38,38 +39,46 @@ namespace TimeSpaceGenerator
 
         private void GenerateXmlButton_Click(object sender, EventArgs e)
         {
-            ErrorTextBox.Text = string.Empty;
-            ErrorManager.Instance.Error.Clear();
-            ScriptManager.Instance.IsGenerated = false;
-            ScriptManager.Instance.LabelSet = false;
-            ScriptManager.Instance.Script = new Script();
-            ScriptManager.Instance.ScriptData = string.Empty;
-            foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
+            try
             {
-                string cpy = line;
-                if (!char.IsLetter(line[0]))
+                ErrorTextBox.Text = string.Empty;
+                ErrorManager.Instance.Error.Clear();
+                ScriptManager.Instance.IsGenerated = false;
+                ScriptManager.Instance.LabelSet = false;
+                ScriptManager.Instance.Script = new Script();
+                ScriptManager.Instance.ScriptData = string.Empty;
+                foreach (string line in PacketTextBox.Lines.Where(s => !string.IsNullOrEmpty(s)))
                 {
-                    //I know this is dirty as fuck
-                    cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
+                    string cpy = line;
+                    if (!char.IsLetter(line[0]))
+                    {
+                        //I know this is dirty as fuck
+                        cpy = line.Remove(0, PacketHelper.Instance.RemovableStringIndex(line, '[', ']', 2, 2));
+                    }
+
+                    string[] packetSplit = cpy.Split(' ');
+                    cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
+                    _packetTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
                 }
 
-                string[] packetSplit = cpy.Split(' ');
-                cpy = PacketHelper.Instance.FormatPacket(cpy, ' ');
-                PacketTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
+                XmlFileNameTextBox.Text = ScriptManager.Instance.FileName;
+
+                ErrorManager.Instance.Dump(ErrorTextBox);
+
+                if (!ScriptManager.Instance.IsGenerated)
+                {
+                    //Dont ask me why I did such bullshit, will fix.
+                    ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript();
+                    ScriptManager.Instance.IsGenerated = true;
+                }
+
+                XmlFile = ScriptManager.Instance.ScriptData;
             }
-
-            XmlFileNameTextBox.Text = ScriptManager.Instance.FileName;
-
-            ErrorManager.Instance.Dump(ErrorTextBox);
-
-            if (!ScriptManager.Instance.IsGenerated)
+            catch (Exception)
             {
-                //Dont ask me why I did such bullshit, will fix.
-                ScriptManager.Instance.ScriptData = ScriptManager.Instance.GenerateScript();
-                ScriptManager.Instance.IsGenerated = true;
+                MessageBox.Show("Please, use correctly formatted packets\nExamples of good formated packets:\n\n[21:12:22] [RECV] Out 1 1\nOut 1 1");
             }
-
-            XmlFile = ScriptManager.Instance.ScriptData;
+            
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -88,14 +97,14 @@ namespace TimeSpaceGenerator
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
             string path = "Scripts";
-            string str = $"{(object)path}\\{(object)XmlFileNameTextBox.Text}";
+            string str = $"{path}\\{XmlFileNameTextBox.Text}";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            File.Create($"{(object)str}").Close();
-            File.WriteAllText($"{(object)str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
+            File.Create($"{str}").Close();
+            File.WriteAllText($"{str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
             MessageBox.Show("File sucessfuly created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 

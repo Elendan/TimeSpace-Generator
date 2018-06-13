@@ -6,11 +6,11 @@ namespace TimeSpaceGenerator.Objects
     {
         public Script()
         {
-            Maps = new List<Map>();
+            Maps = new HashSet<Map>();
             Info = new TimeSpaceInfo();
         }
 
-        public List<Map> Maps { get; set; }
+        public HashSet<Map> Maps { get; set; }
 
         public TimeSpaceInfo Info { get; set; }
     }

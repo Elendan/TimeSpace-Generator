@@ -6,13 +6,13 @@ namespace TimeSpaceGenerator.Objects
     {
         public Map(short vnum, byte id, short indexX, short indexY)
         {
-            MapButtons = new List<Button>();
-            MapPortals = new List<Portal>();
-            MapNpcs = new List<Npc>();
-            MapMonsters = new List<Monster>();
-            OnCharacterDiscoveringMap = new List<Event>();
-            OnMapClear = new List<Event>();
-            Waves = new List<Wave>();
+            MapButtons = new HashSet<Button>();
+            MapPortals = new HashSet<Portal>();
+            MapNpcs = new HashSet<Npc>();
+            MapMonsters = new HashSet<Monster>();
+            OnCharacterDiscoveringMap = new HashSet<Event>();
+            OnMapClear = new HashSet<Event>();
+            Waves = new HashSet<Wave>();
 
             Id = id;
             Vnum = vnum;
@@ -32,18 +32,18 @@ namespace TimeSpaceGenerator.Objects
 
         public Clock MapClock { get; set; }
 
-        public List<Portal> MapPortals { get; set; }
+        public HashSet<Portal> MapPortals { get; set; }
 
-        public List<Npc> MapNpcs { get; set; }
+        public HashSet<Npc> MapNpcs { get; set; }
 
-        public List<Monster> MapMonsters { get; set; }
+        public HashSet<Monster> MapMonsters { get; set; }
 
-        public List<Button> MapButtons { get; set; }
+        public HashSet<Button> MapButtons { get; set; }
 
-        public List<Event> OnCharacterDiscoveringMap { get; set; }
+        public HashSet<Event> OnCharacterDiscoveringMap { get; set; }
 
-        public List<Event> OnMapClear { get; set; }
+        public HashSet<Event> OnMapClear { get; set; }
 
-        public List<Wave> Waves { get; set; }
+        public HashSet<Wave> Waves { get; set; }
     }
 }

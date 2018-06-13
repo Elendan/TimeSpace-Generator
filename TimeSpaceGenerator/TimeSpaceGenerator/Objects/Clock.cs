@@ -6,11 +6,9 @@ namespace TimeSpaceGenerator.Objects
 {
     public class Clock : PacketDefinition
     {
-        public Clock() => TimeOutEvent = new List<Event>();
-
         public Clock(ClockType type, int time)
         {
-            TimeOutEvent = new List<Event>();
+            TimeOutEvent = new HashSet<Event>();
             Type = type;
             Time = time;
         }
@@ -19,6 +17,6 @@ namespace TimeSpaceGenerator.Objects
 
         public int Time { get; set; }
 
-        public List<Event> TimeOutEvent { get; set; }
+        public HashSet<Event> TimeOutEvent { get; set; }
     }
 }

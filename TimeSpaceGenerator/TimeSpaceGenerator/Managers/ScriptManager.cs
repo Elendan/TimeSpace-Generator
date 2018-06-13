@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using TimeSpaceGenerator.Enums;
@@ -117,214 +118,209 @@ namespace TimeSpaceGenerator.Managers
             }
         }
 
-        //TODO: Split and cleanup this shit
+        //TODO: Split and cleanup this shit#endregion
         public string GenerateScript()
         {
-            string str1 = "<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + $"<Globals>\r\n" + $"<Label Value=\"{Script.Info.Label}\"/>\r\n" +
+            var script = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf - 8\"?>\r\n<Definition>\r\n" + $"<Globals>\r\n" + $"<Label Value=\"{Script.Info.Label}\"/>\r\n" +
                 $"<Title Value=\"{Script.Info.Title}\"/>\r\n" + $"<LevelMinimum Value=\"{Script.Info.LevelMinimum}\"/>\r\n" +
                 $"<LevelMaximum Value=\"{(Script.Info.LevelMax == 0 ? 99 : Script.Info.LevelMax)}\"/>\r\n" + $"<Lives Value=\"{Script.Info.Lives}\"/>\r\n" +
-                $"<RequieredItems>\r\n" + $"<Item VNum=\"1012\" Amount=\"{Script.Info.SumOfRequired}\" />\r\n" + $"</RequieredItems>\r\n" + $"<DrawItems>\r\n";
+                $"<RequieredItems>\r\n" + $"<Item VNum=\"1012\" Amount=\"{Script.Info.SumOfRequired}\" />\r\n" + $"</RequieredItems>\r\n" + $"<DrawItems>\r\n");
             foreach (Item obj in Script.Info.DrawGift)
             {
                 if (obj.Vnum != -1)
                 {
-                    str1 += $"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
+                    script.Append($"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n");
                 }
             }
 
-            string str2 = str1 + $"</DrawItems>\r\n" + $"<SpecialItems>\r\n";
+            script.Append($"</DrawItems>\r\n" + $"<SpecialItems>\r\n");
             foreach (Item obj in Script.Info.Special)
             {
                 if (obj.Vnum != -1)
                 {
-                    str2 += $"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n";
+                    script.Append($"<Item VNum=\"{obj.Vnum}\" Amount=\"{obj.Amount}\"/>\r\n");
                 }
             }
 
-            string str3 = str2 + $"</SpecialItems>\r\n" + $"<GiftItems>\r\n";
+            script.Append($"</SpecialItems>\r\n" + $"<GiftItems>\r\n");
             foreach (Item bonu in Script.Info.Bonus)
             {
                 if (bonu.Vnum != -1)
                 {
-                    str3 += $"<Item VNum=\"{bonu.Vnum}\" Amount=\"{bonu.Amount}\"/>\r\n";
+                    script.Append($"<Item VNum=\"{bonu.Vnum}\" Amount=\"{bonu.Amount}\"/>\r\n");
                 }
             }
 
-            string str4 = str3 + $"</GiftItems>\r\n" + $"</Globals>\r\n" + $"<InstanceEvents>\r\n";
+            script.Append($"</GiftItems>\r\n" + $"</Globals>\r\n" + $"<InstanceEvents>\r\n");
             foreach (Map map in Script.Maps.OrderBy(s => s.Id))
             {
-                str4 += $"<CreateMap Map=\"{map.Id}\" VNum=\"{map.Vnum}\" IndexX=\"{map.IndexX}\" IndexY=\"{map.IndexY}\">\r\n";
+                script.Append($"<CreateMap Map=\"{map.Id}\" VNum=\"{map.Vnum}\" IndexX=\"{map.IndexX}\" IndexY=\"{map.IndexY}\">\r\n");
                 if (map.OnCharacterDiscoveringMap.Any())
                 {
-                    str4 += $"<OnCharacterDiscoveringMap>\r\n";
+                    script.Append($"<OnCharacterDiscoveringMap>\r\n");
                     foreach (Event characterDiscovering in map.OnCharacterDiscoveringMap)
                     {
-                        str4 += $"{characterDiscovering.SetEvent()}\r\n";
+                        script.Append($"{characterDiscovering.SetEvent()}\r\n");
                     }
 
-                    List<Event> characterDiscoveringMap = map.OnCharacterDiscoveringMap;
-                    if (characterDiscoveringMap.Any(s => s.Type == EventType.ChangePortalType))
+                    if (map.OnCharacterDiscoveringMap.Any(s => s.Type == EventType.ChangePortalType))
                     {
-                        str4 += $"<RefreshMapItems/>\r\n";
+                        script.Append($"<RefreshMapItems/>\r\n");
                     }
 
-                    str4 += $"</OnCharacterDiscoveringMap>\r\n";
+                    script.Append($"</OnCharacterDiscoveringMap>\r\n");
                 }
 
                 if (map.OnMapClear.Any())
                 {
-                    str4 += $"<OnMapClean>\r\n";
+                    script.Append($"<OnMapClean>\r\n");
                     foreach (Event evt in map.OnMapClear)
                     {
-                        str4 += $"{evt.SetEvent()}\r\n";
+                        script.Append($"{evt.SetEvent()}\r\n");
                     }
 
-                    str4 += $"<RefreshMapItems/>\r\n";
+                    script.Append($"<RefreshMapItems/>\r\n");
 
-                    str4 += $"</OnMapClean>\r\n";
+                    script.Append($"</OnMapClean>\r\n");
                 }
 
                 if (map.Clock != null)
                 {
-                    str4 += $"<GenerateClock Value=\"{map.Clock.Time}\"/>\r\n";
-                    str4 += $"<StartClock/>\r\n";
+                    script.Append($"<GenerateClock Value=\"{map.Clock.Time}\"/>\r\n");
+                    script.Append($"<StartClock/>\r\n");
                 }
 
                 if (map.MapClock != null)
                 {
-                    str4 += $"<GenerateMapClock Value=\"{map.MapClock.Time}\"/>\r\n";
+                    script.Append($"<GenerateMapClock Value=\"{map.MapClock.Time}\"/>\r\n");
                 }
 
                 if (map.MapPortals.Any())
                 {
-                    str4 += $"\r\n<!-- Portals -->\r\n";
+                    script.Append($"\r\n<!-- Portals -->\r\n");
                     foreach (Portal portal in map.MapPortals)
                     {
                         if (portal.OnTraversalEvent.Any())
                         {
                             if (portal.DestMapId != 0)
                             {
-                                str4 +=
-                                    $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n";
+                                script.Append(
+                                    $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\" ToMap=\"{portal.DestMapId}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\">\r\n");
                             }
                             else
                             {
-                                str4 +=
-                                    $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\">\r\n";
+                                script.Append(
+                                    $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{(portal.PortalType == 4 ? 5 : portal.PortalType)}\">\r\n");
                             }
 
-                            str4 += $"<OnTraversal>\r\n";
+                            script.Append($"<OnTraversal>\r\n");
                             foreach (Event evt in portal.OnTraversalEvent)
                             {
-                                str4 += $"{evt.SetEvent()}\r\n";
+                                script.Append($"{evt.SetEvent()}\r\n");
                             }
 
-                            List<Event> onTraversalEvent = portal.OnTraversalEvent;
 
                             if (portal.DestMapId == 0)
                             {
-                                str4 += $"<End Type=\"5\"/>\r\n";
+                                script.Append($"<End Type=\"5\"/>\r\n");
                             }
 
-                            if (onTraversalEvent.Any(s => s.Type == EventType.ChangePortalType))
+                            if (portal.OnTraversalEvent.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += $"<RefreshMapItems/>\r\n";
+                                script.Append($"<RefreshMapItems/>\r\n");
                             }
 
-                            str4 += $"</OnTraversal>\r\n";
-                            str4 += $"</SpawnPortal>\r\n";
+                            script.Append($"</OnTraversal>\r\n");
+                            script.Append($"</SpawnPortal>\r\n");
                         }
                         else
                         {
-                            str4 +=
-                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{(portal.DestMapId == 0 ? 1 : portal.DestMapId)}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n";
+                            script.Append(
+                                $"<SpawnPortal IdOnMap=\"{portal.PortalId}\" PositionX=\"{portal.PosX}\" PositionY=\"{portal.PosY}\" Type=\"{portal.PortalType}\" ToMap=\"{(portal.DestMapId == 0 ? 1 : portal.DestMapId)}\" ToX =\"{portal.DestX}\" ToY =\"{portal.DestY}\"/>\r\n");
                         }
                     }
                 }
 
                 if (map.MapNpcs.Any())
                 {
-                    str4 += $"\r\n<!-- Npcs -->\r\n";
+                    script.Append($"\r\n<!-- Npcs -->\r\n");
                     foreach (Npc npc in map.MapNpcs)
                     {
-                        str4 +=
-                            $"<SummonNpc VNum=\"{npc.Vnum}\" PositionX=\"{npc.PosX}\" PositionY=\"{npc.PosY}\" {(npc.IsMate ? "IsMate=\"True\"" : "")} {(npc.IsProtected ? "IsProtected=\"True\"" : "")}/>\r\n";
+                        script.Append(
+                            $"<SummonNpc VNum=\"{npc.Vnum}\" PositionX=\"{npc.PosX}\" PositionY=\"{npc.PosY}\" {(npc.IsMate ? "IsMate=\"True\"" : "")} {(npc.IsProtected ? "IsProtected=\"True\"" : "")}/>\r\n");
                     }
                 }
 
                 if (map.MapButtons.Any())
                 {
                     int num = 0;
-                    str4 += $"\r\n<!-- Buttons -->\r\n";
+                    script.Append($"\r\n<!-- Buttons -->\r\n");
                     foreach (Button button in map.MapButtons)
                     {
                         if (button.OnFirstEnable.Any())
                         {
-                            str4 +=
-                                $"<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\">\r\n";
-                            str4 += $"<OnFirstEnable>\r\n";
+                            script.Append(
+                                $"<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\">\r\n");
+                            script.Append($"<OnFirstEnable>\r\n");
                             foreach (Event evt in button.OnFirstEnable)
                             {
-                                str4 += $"{evt.SetEvent()}\r\n";
+                                script.Append($"{evt.SetEvent()}\r\n");
                             }
 
-                            List<Event> onFirstEnable = button.OnFirstEnable;
-                            if (onFirstEnable.Any(s => s.Type == EventType.ChangePortalType))
+                            if (button.OnFirstEnable.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += $"<RefreshMapItems/>\r\n";
+                                script.Append($"<RefreshMapItems/>\r\n");
                             }
 
-                            str4 += $"<RefreshMapItems/>\r\n";
-                            str4 += $"</OnFirstEnable>\r\n";
-                            str4 += $"</SpawnButton>\r\n";
+                            script.Append($"<RefreshMapItems/>\r\n");
+                            script.Append($"</OnFirstEnable>\r\n");
+                            script.Append($"</SpawnButton>\r\n");
                         }
                         else
                         {
-                            str4 +=
-                                $"<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\"/>\r\n";
+                            script.Append(
+                                $"<SpawnButton PositionX=\"{button.PosX}\" PositionY=\"{button.PosY}\" VNumDisabled=\"{button.DisableVNum}\" VNumEnabled=\"{button.EnableVNum}\" Id=\"{num++}\"/>\r\n");
                         }
                     }
                 }
 
                 if (map.MapMonsters.Any())
                 {
-                    str4 += $"\r\n<!-- Monsters -->\r\n";
+                    script.Append($"\r\n<!-- Monsters -->\r\n");
                     foreach (Monster monster in map.MapMonsters)
                     {
                         if (!monster.OnDeathEvents.Any())
                         {
-                            str4 +=
-                                $"<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\" {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}/>\r\n";
+                            script.Append(
+                                $"<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\" {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}/>\r\n");
                         }
                         else
                         {
-                            str4 +=
-                                $"<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\"  {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}>\r\n";
-                            str4 += $"<OnDeath>\r\n";
+                            script.Append(
+                                $"<SummonMonster VNum=\"{monster.Vnum}\" PositionX=\"{monster.PosX}\" PositionY=\"{monster.PosY}\"  {(monster.IsTarget ? "IsTarget=\"True\"" : "")} {(monster.IsBonus ? "IsBonus=\"True\"" : "")}>\r\n");
+                            script.Append($"<OnDeath>\r\n");
                             foreach (Event deathEvent in monster.OnDeathEvents)
                             {
-                                str4 += $"{deathEvent.SetEvent()}\r\n";
+                                script.Append($"{deathEvent.SetEvent()}\r\n");
                             }
 
-                            List<Event> deathEvents = monster.OnDeathEvents;
-                            if (deathEvents.Any(s => s.Type == EventType.ChangePortalType))
+                            if (monster.OnDeathEvents.Any(s => s.Type == EventType.ChangePortalType))
                             {
-                                str4 += $"<RefreshMapItems/>\r\n";
+                                script.Append($"<RefreshMapItems/>\r\n");
                             }
 
-                            str4 += $"</OnDeath>\r\n";
-                            str4 += $"</SummonMonster>\r\n";
+                            script.Append($"</OnDeath>\r\n");
+                            script.Append($"</SummonMonster>\r\n");
                         }
                     }
                 }
 
-                str4 += $"</CreateMap>\r\n";
+                script.Append($"</CreateMap>\r\n");
             }
 
-            string ret = XElement.Parse(str4 + $"</InstanceEvents>\r\n" + "</Definition>").ToString();
-            return ret;
+            return XElement.Parse(script.Append($"</InstanceEvents>\r\n</Definition>").ToString()).ToString();
         }
 
-        #endregion
+        #endregion Methods
     }
 }

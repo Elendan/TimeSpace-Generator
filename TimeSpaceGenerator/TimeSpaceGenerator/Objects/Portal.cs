@@ -6,7 +6,7 @@ namespace TimeSpaceGenerator.Objects
     {
         public Portal(short posX, short posY, byte type, int id, short mapId)
         {
-            OnTraversalEvent = new List<Event>();
+            OnTraversalEvent = new HashSet<Event>();
             PosX = posX;
             PosY = posY;
             PortalType = type;
@@ -24,7 +24,7 @@ namespace TimeSpaceGenerator.Objects
 
         public int PortalId { get; set; }
 
-        public List<Event> OnTraversalEvent { get; set; }
+        public HashSet<Event> OnTraversalEvent { get; set; }
 
         public short DestX { get; set; }
 

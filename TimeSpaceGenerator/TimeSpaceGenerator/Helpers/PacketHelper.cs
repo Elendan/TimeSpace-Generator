@@ -9,14 +9,14 @@ namespace TimeSpaceGenerator.Helpers
         public PacketHelper()
         {
             ReplacableChars = new List<char>();
-            ReplacableChars.AddRange(new List<char> { '.' });
+            ReplacableChars.AddRange(".");
         }
 
         #endregion
 
         #region Properties
 
-        public List<char> ReplacableChars { get; set; }
+        private List<char> ReplacableChars { get; set; }
 
         #endregion
 
