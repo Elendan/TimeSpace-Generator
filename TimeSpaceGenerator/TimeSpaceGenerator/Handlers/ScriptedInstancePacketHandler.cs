@@ -30,7 +30,7 @@ namespace TimeSpaceGenerator.Handlers
 
             //Title
             ScriptManager.Instance.Script.Info.Title = packet.TitleAndLabel;
-            ScriptManager.Instance.FileName = $"Ts - {packet.LevelMinimum}.xml";
+            ScriptManager.Instance.FileName = $"Timespace - {packet.LevelMinimum}";
 
             // Level
             ScriptManager.Instance.Script.Info.LevelMinimum = packet.LevelMinimum;

@@ -38,7 +38,6 @@ namespace TimeSpaceGenerator
             this.ErrorTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ExitButton = new System.Windows.Forms.Button();
-            this.XmlFileNameTextBox = new System.Windows.Forms.TextBox();
             this.GenerateXmlFileButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,12 +45,12 @@ namespace TimeSpaceGenerator
             this.buttonClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonXmlFilePreview = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -62,17 +61,17 @@ namespace TimeSpaceGenerator
             this.PacketTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PacketTextBox.Location = new System.Drawing.Point(13, 236);
             this.PacketTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PacketTextBox.MaxLength = 0;
             this.PacketTextBox.Multiline = true;
             this.PacketTextBox.Name = "PacketTextBox";
             this.PacketTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            PacketTextBox.MaxLength = 0;
             this.PacketTextBox.Size = new System.Drawing.Size(909, 337);
             this.PacketTextBox.TabIndex = 1;
             // 
             // GenerateXmlButton
             // 
             this.GenerateXmlButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GenerateXmlButton.Location = new System.Drawing.Point(13, 18);
+            this.GenerateXmlButton.Location = new System.Drawing.Point(53, 18);
             this.GenerateXmlButton.Margin = new System.Windows.Forms.Padding(4);
             this.GenerateXmlButton.Name = "GenerateXmlButton";
             this.GenerateXmlButton.Size = new System.Drawing.Size(232, 100);
@@ -130,25 +129,15 @@ namespace TimeSpaceGenerator
             this.ExitButton.UseVisualStyleBackColor = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
-            // XmlFileNameTextBox
-            // 
-            this.XmlFileNameTextBox.BackColor = System.Drawing.Color.Silver;
-            this.XmlFileNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.XmlFileNameTextBox.Location = new System.Drawing.Point(608, 95);
-            this.XmlFileNameTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.XmlFileNameTextBox.Name = "XmlFileNameTextBox";
-            this.XmlFileNameTextBox.Size = new System.Drawing.Size(314, 19);
-            this.XmlFileNameTextBox.TabIndex = 9;
-            // 
             // GenerateXmlFileButton
             // 
             this.GenerateXmlFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GenerateXmlFileButton.Location = new System.Drawing.Point(323, 18);
+            this.GenerateXmlFileButton.Location = new System.Drawing.Point(353, 18);
             this.GenerateXmlFileButton.Margin = new System.Windows.Forms.Padding(4);
             this.GenerateXmlFileButton.Name = "GenerateXmlFileButton";
             this.GenerateXmlFileButton.Size = new System.Drawing.Size(232, 100);
             this.GenerateXmlFileButton.TabIndex = 10;
-            this.GenerateXmlFileButton.Text = "G E N E R A TE\r\nX M L";
+            this.GenerateXmlFileButton.Text = "G E N E R A T E\r\nX M L";
             this.GenerateXmlFileButton.UseVisualStyleBackColor = true;
             this.GenerateXmlFileButton.Click += new System.EventHandler(this.GenerateXmlFileButton_Click);
             // 
@@ -170,7 +159,7 @@ namespace TimeSpaceGenerator
             this.label4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(13, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(250, 24);
+            this.label4.Size = new System.Drawing.Size(238, 24);
             this.label4.TabIndex = 2;
             this.label4.Text = "TimeSpace Generator";
             // 
@@ -199,10 +188,8 @@ namespace TimeSpaceGenerator
             // panel2
             // 
             this.panel2.Controls.Add(this.buttonXmlFilePreview);
-            this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.GenerateXmlButton);
             this.panel2.Controls.Add(this.GenerateXmlFileButton);
-            this.panel2.Controls.Add(this.XmlFileNameTextBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 793);
             this.panel2.Name = "panel2";
@@ -212,22 +199,13 @@ namespace TimeSpaceGenerator
             // buttonXmlFilePreview
             // 
             this.buttonXmlFilePreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonXmlFilePreview.Location = new System.Drawing.Point(805, 28);
+            this.buttonXmlFilePreview.Location = new System.Drawing.Point(653, 18);
             this.buttonXmlFilePreview.Name = "buttonXmlFilePreview";
-            this.buttonXmlFilePreview.Size = new System.Drawing.Size(117, 53);
+            this.buttonXmlFilePreview.Size = new System.Drawing.Size(232, 100);
             this.buttonXmlFilePreview.TabIndex = 12;
-            this.buttonXmlFilePreview.Text = "XML File Preview";
+            this.buttonXmlFilePreview.Text = "F I L E \r\nP R E V I E W";
             this.buttonXmlFilePreview.UseVisualStyleBackColor = true;
             this.buttonXmlFilePreview.Click += new System.EventHandler(this.ButtonXmlFilePreview_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(604, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 19);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "XML File Name";
             // 
             // label5
             // 
@@ -259,6 +237,7 @@ namespace TimeSpaceGenerator
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(76, 76);
             this.textBox1.TabIndex = 17;
             this.textBox1.Text = "walk\r\npreq";
@@ -272,6 +251,7 @@ namespace TimeSpaceGenerator
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(148, 76);
             this.textBox2.TabIndex = 19;
             this.textBox2.Text = "su\tgp\tat\r\nrsfn\tnpc_req\tevnt\r\nin\tminfo\tmsg\r\nout\trbr\teff\r\nrsfm";
@@ -285,6 +265,12 @@ namespace TimeSpaceGenerator
             this.label7.Size = new System.Drawing.Size(72, 19);
             this.label7.TabIndex = 18;
             this.label7.Text = "Receive";
+            // 
+            // SaveFileDialog
+            // 
+            this.SaveFileDialog.DefaultExt = "xml";
+            this.SaveFileDialog.Filter = "XML Files|*.xml";
+            this.SaveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.GenerateXmlFile);
             // 
             // MainWindow
             // 
@@ -313,7 +299,6 @@ namespace TimeSpaceGenerator
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,20 +311,19 @@ namespace TimeSpaceGenerator
         private System.Windows.Forms.TextBox ErrorTextBox;
         private System.Windows.Forms.Label label1;
         private Button ExitButton;
-        private TextBox XmlFileNameTextBox;
         private Button GenerateXmlFileButton;
         private Panel panel1;
         private Label label4;
         private Button buttonMinimize;
         private Button buttonClose;
         private Panel panel2;
-        private Label label2;
         private Button buttonXmlFilePreview;
         private Label label5;
         private Label label6;
         private TextBox textBox1;
         private TextBox textBox2;
         private Label label7;
+        private SaveFileDialog SaveFileDialog;
     }
 }
 

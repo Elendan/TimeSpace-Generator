@@ -61,8 +61,6 @@ namespace TimeSpaceGenerator
                     _packetTriggerHandler.TriggerHandlerPacket(packetSplit[0], cpy, true);
                 }
 
-                XmlFileNameTextBox.Text = ScriptManager.Instance.FileName;
-
                 ErrorManager.Instance.Dump(ErrorTextBox);
 
                 if (!ScriptManager.Instance.IsGenerated)
@@ -73,6 +71,8 @@ namespace TimeSpaceGenerator
                 }
 
                 XmlFile = ScriptManager.Instance.ScriptData;
+                SaveFileDialog.FileName = ScriptManager.Instance.FileName;
+                SaveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             }
             catch (Exception)
             {
@@ -96,15 +96,25 @@ namespace TimeSpaceGenerator
 
         private void GenerateXmlFileButton_Click(object sender, EventArgs e)
         {
-            const string path = "Scripts";
-            string str = $"{path}\\{XmlFileNameTextBox.Text}";
-            if (!Directory.Exists(path))
+            if (XmlFile != null && PacketTextBox.Text != string.Empty)
             {
-                Directory.CreateDirectory(path);
+                SaveFileDialog.ShowDialog();
             }
+            else if (PacketTextBox.Text == string.Empty)
+            {
+                MessageBox.Show(@"Please paste your packets in the packets box.", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else if (XmlFile == null)
+            {
+                MessageBox.Show(@"Please click the generate button.", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
 
-            File.Create($"{str}").Close();
-            File.WriteAllText($"{str}", ScriptManager.Instance.ScriptData, Encoding.Unicode);
+        private void GenerateXmlFile(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            File.Create(SaveFileDialog.FileName).Close();
+            File.WriteAllText(SaveFileDialog.FileName, ScriptManager.Instance.ScriptData, Encoding.Unicode);
+            SaveFileDialog.FileName = string.Empty;
             MessageBox.Show(@"File sucessfuly created", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
@@ -129,5 +139,11 @@ namespace TimeSpaceGenerator
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
+
+        private void FolderBrowser_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
