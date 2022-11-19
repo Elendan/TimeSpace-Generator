@@ -12,7 +12,7 @@ namespace TimeSpaceGenerator.Managers
     {
         public static Dictionary<int, string> StringsDict = new Dictionary<int, string>();
 
-        public static async Task ImportStrings()
+        public static void ImportStrings()
         {
             if (!File.Exists("conststring.dat"))
             {
