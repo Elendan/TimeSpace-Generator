@@ -271,8 +271,8 @@ namespace TimeSpaceGenerator.Handlers
                         if (!ScriptManager.Instance.Flag2)
                         {
                             ScriptManager.Instance.Flag2 = true;
-                            ScriptManager.Instance.Data[0] = packet.BaseSecondsRemaining - ScriptManager.Instance.Num2;
-                            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.AddClockTime, ScriptManager.Instance.Data));
+                            int Clock = packet.BaseSecondsRemaining - ScriptManager.Instance.Num2;
+                            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.AddClockTime, ScriptManager.Instance.Data, numericData: Clock));
                         }
 
                         break;

@@ -65,7 +65,7 @@ namespace TimeSpaceGenerator.Objects
                 case EventType.ChangePortalType:
                     return $"<ChangePortalType IdOnMap=\"{NumericData}\" Type=\"{(SpecialValue ? 4 : 2)}\"/>"; //TODO: Fix this
                 case EventType.AddClockTime:
-                    return $"<AddClockTime Value=\"{Data[0]}\"/>";
+                    return $"<AddClockTime Value=\"{NumericData}\"/>";
                 case EventType.MapClock:
                     return $"<GenerateMapClock Value=\"{Data[0]}\"/>\r\n" + $"<StartMapClock/>";
                 case EventType.SendPacket:
