@@ -254,7 +254,7 @@ namespace TimeSpaceGenerator
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(148, 76);
             this.textBox2.TabIndex = 19;
-            this.textBox2.Text = "su\tgp\tat\r\nrsfn\tnpc_req\tevnt\r\nin\tminfo\tmsg\r\nout\trbr\teff\r\nrsfm";
+            this.textBox2.Text = "su\tgp\tat\r\nrsfn\tnpc_req\tevnt\r\nin\tminfo\tmsg\r\nout\trbr\teff\r\nrsfm\tmsgi";
             // 
             // label7
             // 

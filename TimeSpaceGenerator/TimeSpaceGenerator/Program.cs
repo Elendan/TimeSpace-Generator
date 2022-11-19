@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TimeSpaceGenerator.Managers;
 
 namespace TimeSpaceGenerator
 {
@@ -11,6 +12,7 @@ namespace TimeSpaceGenerator
         [STAThread]
         private static void Main()
         {
+            ConststringManager.ImportStrings();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

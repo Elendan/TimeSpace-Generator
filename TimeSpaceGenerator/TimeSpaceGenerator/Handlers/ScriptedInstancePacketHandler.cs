@@ -137,6 +137,14 @@ namespace TimeSpaceGenerator.Handlers
 
             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: packet.Message));
         }
+        public void MsgiPacket(MsgiPacket packet)
+        {
+            string Message = ConststringManager.GetString(packet.MessageIndex);
+            ScriptManager.Instance.Data[0] = Message;
+            ScriptManager.Instance.Data[1] = packet.Type;
+
+            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: Message));
+        }
 
         public void MinfoPacket(MinfoPacket packet)
         {
