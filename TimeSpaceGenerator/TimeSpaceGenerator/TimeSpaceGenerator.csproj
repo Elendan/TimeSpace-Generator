@@ -90,6 +90,7 @@
     <Compile Include="Packets\EffPacket.cs" />
     <Compile Include="Packets\EvntPacket.cs" />
     <Compile Include="Packets\GpPacket.cs" />
+    <Compile Include="Packets\InfoiPacket.cs" />
     <Compile Include="Packets\InPacket.cs" />
     <Compile Include="Packets\MinfoPacket.cs" />
     <Compile Include="Packets\MsgiPacket.cs" />
