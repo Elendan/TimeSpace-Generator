@@ -45,11 +45,6 @@ namespace TimeSpaceGenerator
             this.buttonClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonXmlFilePreview = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -59,7 +54,7 @@ namespace TimeSpaceGenerator
             // 
             this.PacketTextBox.BackColor = System.Drawing.Color.Silver;
             this.PacketTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PacketTextBox.Location = new System.Drawing.Point(13, 236);
+            this.PacketTextBox.Location = new System.Drawing.Point(13, 122);
             this.PacketTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PacketTextBox.MaxLength = 0;
             this.PacketTextBox.Multiline = true;
@@ -83,10 +78,10 @@ namespace TimeSpaceGenerator
             // PacketsLabel
             // 
             this.PacketsLabel.AutoSize = true;
-            this.PacketsLabel.Location = new System.Drawing.Point(13, 192);
+            this.PacketsLabel.Location = new System.Drawing.Point(13, 78);
             this.PacketsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PacketsLabel.Name = "PacketsLabel";
-            this.PacketsLabel.Size = new System.Drawing.Size(72, 19);
+            this.PacketsLabel.Size = new System.Drawing.Size(87, 23);
             this.PacketsLabel.TabIndex = 3;
             this.PacketsLabel.Text = "Packets";
             this.PacketsLabel.Click += new System.EventHandler(this.PacketsLabel_Click);
@@ -95,22 +90,22 @@ namespace TimeSpaceGenerator
             // 
             this.ErrorTextBox.BackColor = System.Drawing.Color.Silver;
             this.ErrorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ErrorTextBox.Location = new System.Drawing.Point(13, 642);
+            this.ErrorTextBox.Location = new System.Drawing.Point(13, 515);
             this.ErrorTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ErrorTextBox.Multiline = true;
             this.ErrorTextBox.Name = "ErrorTextBox";
             this.ErrorTextBox.ReadOnly = true;
             this.ErrorTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ErrorTextBox.Size = new System.Drawing.Size(909, 144);
+            this.ErrorTextBox.Size = new System.Drawing.Size(909, 199);
             this.ErrorTextBox.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 598);
+            this.label1.Location = new System.Drawing.Point(13, 471);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 19);
+            this.label1.Size = new System.Drawing.Size(109, 23);
             this.label1.TabIndex = 6;
             this.label1.Text = "Error Log";
             // 
@@ -159,7 +154,7 @@ namespace TimeSpaceGenerator
             this.label4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(13, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(238, 24);
+            this.label4.Size = new System.Drawing.Size(299, 32);
             this.label4.TabIndex = 2;
             this.label4.Text = "TimeSpace Generator";
             // 
@@ -191,7 +186,7 @@ namespace TimeSpaceGenerator
             this.panel2.Controls.Add(this.GenerateXmlButton);
             this.panel2.Controls.Add(this.GenerateXmlFileButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 793);
+            this.panel2.Location = new System.Drawing.Point(0, 736);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(935, 131);
             this.panel2.TabIndex = 14;
@@ -207,65 +202,6 @@ namespace TimeSpaceGenerator
             this.buttonXmlFilePreview.UseVisualStyleBackColor = true;
             this.buttonXmlFilePreview.Click += new System.EventHandler(this.ButtonXmlFilePreview_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(319, 94);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(250, 22);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Packet Logger White List";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(339, 128);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 19);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Send";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.Silver;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(323, 151);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(76, 76);
-            this.textBox1.TabIndex = 17;
-            this.textBox1.Text = "walk\r\npreq";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.Silver;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(426, 151);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(148, 76);
-            this.textBox2.TabIndex = 19;
-            this.textBox2.Text = "su\tgp\tat\r\nrsfn\tnpc_req\tevnt\r\nin\tminfo\tmsg\r\nout\trbr\teff\r\nrsfm";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(461, 128);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 19);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "Receive";
-            // 
             // SaveFileDialog
             // 
             this.SaveFileDialog.DefaultExt = "xml";
@@ -274,15 +210,10 @@ namespace TimeSpaceGenerator
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.ClientSize = new System.Drawing.Size(935, 924);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.ClientSize = new System.Drawing.Size(935, 867);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.ErrorTextBox);
             this.Controls.Add(this.PacketTextBox);
@@ -318,11 +249,6 @@ namespace TimeSpaceGenerator
         private Button buttonClose;
         private Panel panel2;
         private Button buttonXmlFilePreview;
-        private Label label5;
-        private Label label6;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Label label7;
         private SaveFileDialog SaveFileDialog;
     }
 }

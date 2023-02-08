@@ -73,7 +73,7 @@ namespace TimeSpaceGenerator.Core
             }
         }
 
-
+        string LastPacketHeader = "";
         public void TriggerHandlerPacket(string packetHeader, string packet, bool force = false)
         {
             if (!HandlerMethods.TryGetValue(packetHeader, out HandlerMethodReference methodReference))
@@ -84,9 +84,14 @@ namespace TimeSpaceGenerator.Core
                     ScriptManager.Instance.LabelSet = true;
                 }
 
-                ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.MissingPacket, $"Handler not found for packet : {packetHeader}"));
+                if (LastPacketHeader != "rbr")//Is ugly, but i dont want error in the box for the title
+                {
+                    ErrorManager.Instance.Error.Add(new KeyValuePair<ErrorType, string>(ErrorType.MissingPacket, $"Handler not found for packet : {packetHeader}"));
+                    LastPacketHeader = packetHeader;
+                }
                 return;
             }
+            LastPacketHeader = packetHeader;
 
             try
             {

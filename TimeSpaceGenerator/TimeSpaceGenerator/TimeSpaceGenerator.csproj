@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TimeSpaceGenerator</RootNamespace>
     <AssemblyName>TimeSpaceGenerator</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,6 +72,7 @@
     <Compile Include="Handlers\ScriptedInstancePacketHandler.cs" />
     <Compile Include="Helpers\PacketHelper.cs" />
     <Compile Include="Helpers\ScriptHelper.cs" />
+    <Compile Include="Managers\ConststringManager.cs" />
     <Compile Include="Managers\ScriptManager.cs" />
     <Compile Include="Objects\Button.cs" />
     <Compile Include="Objects\Clock.cs" />
@@ -88,8 +90,10 @@
     <Compile Include="Packets\EffPacket.cs" />
     <Compile Include="Packets\EvntPacket.cs" />
     <Compile Include="Packets\GpPacket.cs" />
+    <Compile Include="Packets\InfoiPacket.cs" />
     <Compile Include="Packets\InPacket.cs" />
     <Compile Include="Packets\MinfoPacket.cs" />
+    <Compile Include="Packets\MsgiPacket.cs" />
     <Compile Include="Packets\MsgPacket.cs" />
     <Compile Include="Packets\NpcReqPacket.cs" />
     <Compile Include="Packets\OutPacket.cs" />
@@ -118,6 +122,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="XmlFilePreviewWindow.resx">
       <DependentUpon>XmlFilePreviewWindow.cs</DependentUpon>

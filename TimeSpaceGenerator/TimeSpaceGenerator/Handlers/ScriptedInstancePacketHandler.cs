@@ -137,6 +137,21 @@ namespace TimeSpaceGenerator.Handlers
 
             ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: packet.Message));
         }
+        public void MsgiPacket(MsgiPacket packet)
+        {
+            string Message = ConststringManager.GetString(packet.MessageIndex);
+            ScriptManager.Instance.Data[0] = Message;
+            ScriptManager.Instance.Data[1] = packet.Type;
+
+            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: Message));
+        }
+        public void InfoiPacket(InfoiPacket packet)
+        {
+            string Message = ConststringManager.GetString(packet.MessageIndex);
+            ScriptManager.Instance.Data[0] = Message;
+
+            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.SendMsg, ScriptManager.Instance.Data, textData: Message));
+        }
 
         public void MinfoPacket(MinfoPacket packet)
         {
@@ -256,8 +271,8 @@ namespace TimeSpaceGenerator.Handlers
                         if (!ScriptManager.Instance.Flag2)
                         {
                             ScriptManager.Instance.Flag2 = true;
-                            ScriptManager.Instance.Data[0] = packet.BaseSecondsRemaining - ScriptManager.Instance.Num2;
-                            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.AddClockTime, ScriptManager.Instance.Data));
+                            int Clock = packet.BaseSecondsRemaining - ScriptManager.Instance.Num2;
+                            ScriptManager.Instance.AddEvent(ScriptManager.Instance.Target, ScriptManager.Instance.EventName, new Event(EventType.AddClockTime, ScriptManager.Instance.Data, numericData: Clock));
                         }
 
                         break;

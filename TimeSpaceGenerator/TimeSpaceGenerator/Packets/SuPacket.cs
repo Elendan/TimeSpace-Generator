@@ -43,7 +43,7 @@ namespace TimeSpaceGenerator.Packets
         public int Hp { get; set; }
 
         [PacketIndex(12)]
-        public ushort Damage { get; set; }
+        public int Damage { get; set; }
 
         [PacketIndex(13)]
         public short Unknown8 { get; set; }
